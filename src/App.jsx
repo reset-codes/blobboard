@@ -21,7 +21,7 @@ function App() {
   // Fixed constant for frost per MiB per epoch
   const FROST_PER_MIB_PER_EPOCH = 55000;
   // State for total data stored on Walrus (in TB)
-  const [totalDataStoredTB, setTotalDataStoredTB] = useState(1100); // 1100 TB = 1.1 PB
+  const [totalDataStoredTB, setTotalDataStoredTB] = useState(870); // 1100 TB = 1.1 PB
   const [editingTotalData, setEditingTotalData] = useState(false);
   const totalDataRef = useRef(null);
 
@@ -390,7 +390,7 @@ function App() {
               </table>
             </div>
             {/* Revenue Card */}
-            <div className="revenue-section data-box" style={{ margin: '32px auto 0 auto', maxWidth: 900, marginBottom: '8rem' }}>
+            <div className="revenue-section data-box" style={{ margin: '32px auto 0 auto', maxWidth: 900, marginBottom: '20rem' }}>
               <div className="revenue-title">REVENUE</div>
               <div className="revenue-sublabel" style={{ marginBottom: 10 }}>
                 Total Data Stored:&nbsp;
@@ -434,22 +434,23 @@ function App() {
         <div style={{ textAlign: 'center', color: '#b7aaff', fontSize: 16, marginBottom: 8, letterSpacing: 1 }}>
           1 WAL = 1,000,000,000 frost &nbsp; | &nbsp; 1 GB = 1,024 MiB &nbsp; | &nbsp; 1 TB = 1,024 GB &nbsp; | &nbsp; 1 epoch = 14 days &nbsp; | &nbsp; 1 year = 365 days
         </div>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 32, margin: '8px 0 8px 0' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#191a2b', borderRadius: 16, padding: '8px 22px' }}>
+        {/* Footer coin prices */}
+        <div className="price-footer">
+          <div className="price-item">
             <img src={WAL_ICON} alt="WAL" style={{ width: 32, height: 32, borderRadius: '50%', background: '#b7faff', border: '2px solid #23243a' }} />
-            <span style={{ color: '#b7aaff', fontWeight: 700, fontSize: 20, letterSpacing: 1 }}>WAL</span>
+            <span style={{ color: '#b7aaff', fontWeight: 700, fontSize: 20, letterSpacing: 1, marginLeft: 8 }}>WAL</span>
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 20, marginLeft: 8 }}>${walPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-          </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#191a2b', borderRadius: 16, padding: '8px 22px' }}>
+          </div>
+          <div className="price-item">
             <img src={SUI_ICON} alt="SUI" style={{ width: 32, height: 32, borderRadius: '50%', background: '#eaf6ff', border: '2px solid #23243a' }} />
-            <span style={{ color: '#b7aaff', fontWeight: 700, fontSize: 20, letterSpacing: 1 }}>SUI</span>
+            <span style={{ color: '#b7aaff', fontWeight: 700, fontSize: 20, letterSpacing: 1, marginLeft: 8 }}>SUI</span>
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 20, marginLeft: 8 }}>${suiPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-          </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#191a2b', borderRadius: 16, padding: '8px 22px' }}>
+          </div>
+          <div className="price-item">
             <img src={BTC_ICON} alt="BTC" style={{ width: 32, height: 32, borderRadius: '50%', background: '#ffb84d', border: '2px solid #23243a' }} />
-            <span style={{ color: '#b7aaff', fontWeight: 700, fontSize: 20, letterSpacing: 1 }}>BTC</span>
+            <span style={{ color: '#b7aaff', fontWeight: 700, fontSize: 20, letterSpacing: 1, marginLeft: 8 }}>BTC</span>
             <span style={{ color: '#fff', fontWeight: 700, fontSize: 20, marginLeft: 8 }}>${btcPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-          </span>
+          </div>
         </div>
         <div className="footer-text" style={{ width: '100%', textAlign: 'center', color: '#b7aaff', fontSize: 16, opacity: 0.7, letterSpacing: 1, marginTop: 8 }}>
           Made with <span style={{ color: '#ff4d9d', fontSize: 18, verticalAlign: 'middle' }}>❤️</span> by <a href="https://x.com/Reset_sui" target="_blank" rel="noopener noreferrer" style={{ fontWeight: 700, color: '#b7aaff', textDecoration: 'underline' }}>Reset.sui</a>
