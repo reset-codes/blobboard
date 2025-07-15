@@ -1,4 +1,4 @@
-# Blob Board
+# [Blob Board](https://blobboard.wal.app)
 
 ## Overview
 
