@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import './AppCustom.css';
 import Header from './components/Header';
+import TopStatsBar from './components/TopStatsBar';
 import Footer from './components/Footer';
 import RevenueSection from './components/RevenueSection';
 import StorageCalculator from './components/StorageCalculator';
@@ -84,7 +85,9 @@ function App() {
         {baseCosts && (
           <>
             <div className="section-spacing">
-              <StorageCalculator 
+              <Header />
+              <TopStatsBar totalDataStoredTB={totalDataStoredTB} frostPerMiB={frostPerMiB} />
+            </div> 
                 userStorage={userStorage}
                 setUserStorage={setUserStorage}
                 userStorageUnit={userStorageUnit}
