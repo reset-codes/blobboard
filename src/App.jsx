@@ -83,8 +83,8 @@ function App() {
   return (
     <div className="app-container">
       <div className="responsive-main" style={{ paddingBottom: '200px' }}>
-        <Header />
         {baseCosts && <TopStatsBar totalDataStoredTB={totalDataStoredTB} frostPerMiB={frostPerMiB} epochInfo={epochInfo} />}
+        <Header />
         
         {baseCosts && (
           <>
