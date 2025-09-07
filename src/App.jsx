@@ -22,6 +22,7 @@ function App() {
   const [frostPerMiB, setFrostPerMiB] = useState(FROST_PER_MIB_PER_EPOCH);
   const [totalDataStoredTB, setTotalDataStoredTB] = useState(509);
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [epochInfo, setEpochInfo] = useState(null);
 
   const [userStorage, setUserStorage] = useState('100');
   const [userStorageUnit, setUserStorageUnit] = useState('KB');
@@ -54,6 +55,8 @@ function App() {
           setTotalDataStoredTB(data.data.storage_capacity.used_tb);
           // Update lastUpdated with the timestamp from API
           setLastUpdated(data.data.last_updated);
+          // Update epochInfo with epoch data from API
+          setEpochInfo(data.data.epoch_info);
         }
       } catch (e) {
         console.error("Failed to fetch Walrus data:", e);
@@ -81,7 +84,7 @@ function App() {
     <div className="app-container">
       <div className="responsive-main" style={{ paddingBottom: '200px' }}>
         <Header />
-        {baseCosts && <TopStatsBar totalDataStoredTB={totalDataStoredTB} frostPerMiB={frostPerMiB} />}
+        {baseCosts && <TopStatsBar totalDataStoredTB={totalDataStoredTB} frostPerMiB={frostPerMiB} epochInfo={epochInfo} />}
         
         {baseCosts && (
           <>

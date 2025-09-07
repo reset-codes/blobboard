@@ -1,32 +1,20 @@
 import React from 'react';
 
-const TopStatsBar = ({ totalDataStoredTB, frostPerMiB }) => {
-  // Calculate storage capacity percentage (assuming 2 PB = 2048 TB as max capacity)
-  // This is an example value - you might want to adjust based on actual network limits
-  const maxStorageCapacityTB = 2048; // 2 PB
+const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
+  // Calculate storage capacity percentage from API data
+  // We'll use the percentage directly from the API, but also calculate it for verification
+  const maxStorageCapacityTB = 3.7 * 1024; // 3.7 PB converted to TB
   const storagePercentage = Math.min(100, (totalDataStoredTB / maxStorageCapacityTB) * 100);
+  // Or we can use the API provided percentage if available:
+  const apiStoragePercentage = epochInfo?.storage_capacity?.percentage || 0;
   
-  // Calculate epoch progress (assuming 14 days per epoch)
-  // We'll simulate progress based on current time within an epoch
+  // Use API data for epoch progress
+  const epochProgress = epochInfo?.epoch_percentage_completed || 0;
+  const currentEpoch = epochInfo?.current_epoch || 0;
+  
+  // Calculate current day in epoch (14-day cycle)
   const epochDurationDays = 14;
-  const getCurrentEpochProgress = () => {
-    // This is a simplified simulation - in a real app, you'd get this from an API
-    // For now, we'll use the current day within a 14-day cycle
-    const now = new Date();
-    const startOfYear = new Date(now.getFullYear(), 0, 0);
-    const diff = now - startOfYear;
-    const oneDay = 1000 * 60 * 60 * 24;
-    const dayOfYear = Math.floor(diff / oneDay);
-    
-    // Calculate which day we are in the current epoch (0-13)
-    const dayInEpoch = dayOfYear % epochDurationDays;
-    
-    // Return progress percentage
-    return (dayInEpoch / epochDurationDays) * 100;
-  };
-  
-  const epochProgress = getCurrentEpochProgress();
-  const currentEpoch = Math.floor(new Date().getTime() / (epochDurationDays * 24 * 60 * 60 * 1000));
+  const currentDayInEpoch = Math.floor((epochProgress / 100) * epochDurationDays) + 1;
 
   return (
     <div style={{
@@ -52,7 +40,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB }) => {
             color: '#b7aaff',
             marginBottom: '8px'
           }}>
-            Storage Used: {totalDataStoredTB?.toLocaleString()} TB
+            Storage Used: {totalDataStoredTB?.toLocaleString(undefined, { maximumFractionDigits: 2 })} TB
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ 
@@ -65,7 +53,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB }) => {
               <div 
                 style={{ 
                   height: '100%', 
-                  width: `${storagePercentage}%`, 
+                  width: `${apiStoragePercentage || storagePercentage}%`, 
                   background: 'linear-gradient(90deg, #6a5af9, #b7aaff)',
                   borderRadius: '5px',
                   transition: 'width 0.3s ease'
@@ -79,7 +67,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB }) => {
               minWidth: '40px',
               textAlign: 'right' 
             }}>
-              {storagePercentage.toFixed(1)}%
+              {(apiStoragePercentage || storagePercentage).toFixed(1)}%
             </div>
           </div>
         </div>
@@ -92,7 +80,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB }) => {
             color: '#b7aaff',
             marginBottom: '8px'
           }}>
-            Epoch #{currentEpoch}: Day {Math.floor((epochProgress / 100) * 14) + 1}/14
+            Epoch #{currentEpoch}: Day {currentDayInEpoch}/{epochDurationDays}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ 
