@@ -12,11 +12,12 @@ body, html, #root {
   margin: 0;
   padding: 0;
   font-family: 'Inter', 'JetBrains Mono', Arial, sans-serif;
-  background-color: #1a1b2b;
+  background-color: #0b0d18;
   background-image:
-    linear-gradient(180deg, rgba(11, 13, 24, 0.9) 0%, rgba(26, 27, 43, 0.9) 60%, rgba(43, 58, 58, 0.9) 100%),
-    repeating-linear-gradient(0deg, #3B3D48, #3B3D48 1px, transparent 1px, transparent 40px),
-    repeating-linear-gradient(90deg, #3B3D48, #3B3D48 1px, transparent 1px, transparent 40px);
+    linear-gradient(to right, #3B3D48 1px, transparent 1px),
+    linear-gradient(to bottom, #3B3D48 1px, transparent 1px),
+    linear-gradient(180deg, #0b0d18 0%, #1a1b2b 60%, #2b3a3a 100%);
+  background-size: 120px 120px, 120px 120px, auto;
   background-attachment: fixed;
 }
 
