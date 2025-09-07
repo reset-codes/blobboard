@@ -81,13 +81,12 @@ function App() {
     <div className="app-container">
       <div className="responsive-main" style={{ paddingBottom: '200px' }}>
         <Header />
+        {baseCosts && <TopStatsBar totalDataStoredTB={totalDataStoredTB} frostPerMiB={frostPerMiB} />}
         
         {baseCosts && (
           <>
             <div className="section-spacing">
-              <Header />
-              <TopStatsBar totalDataStoredTB={totalDataStoredTB} frostPerMiB={frostPerMiB} />
-            </div> 
+              <StorageCalculator 
                 userStorage={userStorage}
                 setUserStorage={setUserStorage}
                 userStorageUnit={userStorageUnit}

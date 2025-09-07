@@ -37,85 +37,91 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB }) => {
       padding: '16px 24px',
       marginBottom: '32px',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '16px'
     }}>
-      {/* Storage Capacity Section */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <div style={{ 
-          minWidth: '180px', 
-          fontSize: '14px', 
-          fontWeight: '600', 
-          color: '#b7aaff' 
-        }}>
-          Storage Used: {totalDataStoredTB?.toLocaleString()} TB
-        </div>
-        <div style={{ flex: 1 }}>
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        flexWrap: 'wrap',
+        gap: '24px'
+      }}>
+        {/* Storage Capacity Section */}
+        <div style={{ flex: '1 1 45%', minWidth: '300px' }}>
           <div style={{ 
-            height: '10px', 
-            background: '#2e2f4a', 
-            borderRadius: '5px', 
-            overflow: 'hidden' 
+            fontSize: '14px', 
+            fontWeight: '600', 
+            color: '#b7aaff',
+            marginBottom: '8px'
           }}>
-            <div 
-              style={{ 
-                height: '100%', 
-                width: `${storagePercentage}%`, 
-                background: 'linear-gradient(90deg, #6a5af9, #b7aaff)',
-                borderRadius: '5px',
-                transition: 'width 0.3s ease'
-              }} 
-            />
+            Storage Used: {totalDataStoredTB?.toLocaleString()} TB
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ 
+              flex: 1,
+              height: '10px', 
+              background: '#2e2f4a', 
+              borderRadius: '5px', 
+              overflow: 'hidden' 
+            }}>
+              <div 
+                style={{ 
+                  height: '100%', 
+                  width: `${storagePercentage}%`, 
+                  background: 'linear-gradient(90deg, #6a5af9, #b7aaff)',
+                  borderRadius: '5px',
+                  transition: 'width 0.3s ease'
+                }} 
+              />
+            </div>
+            <div style={{ 
+              fontSize: '14px', 
+              fontWeight: '600', 
+              color: '#fff', 
+              minWidth: '40px',
+              textAlign: 'right' 
+            }}>
+              {storagePercentage.toFixed(1)}%
+            </div>
           </div>
         </div>
-        <div style={{ 
-          minWidth: '50px', 
-          fontSize: '14px', 
-          fontWeight: '600', 
-          color: '#fff', 
-          textAlign: 'right' 
-        }}>
-          {storagePercentage.toFixed(1)}%
-        </div>
-      </div>
-      
-      {/* Epoch Progress Section */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <div style={{ 
-          minWidth: '180px', 
-          fontSize: '14px', 
-          fontWeight: '600', 
-          color: '#b7aaff' 
-        }}>
-          Epoch #{currentEpoch}: Day {Math.floor((epochProgress / 100) * 14) + 1}/14
-        </div>
-        <div style={{ flex: 1 }}>
+        
+        {/* Epoch Progress Section */}
+        <div style={{ flex: '1 1 45%', minWidth: '300px' }}>
           <div style={{ 
-            height: '10px', 
-            background: '#2e2f4a', 
-            borderRadius: '5px', 
-            overflow: 'hidden' 
+            fontSize: '14px', 
+            fontWeight: '600', 
+            color: '#b7aaff',
+            marginBottom: '8px'
           }}>
-            <div 
-              style={{ 
-                height: '100%', 
-                width: `${epochProgress}%`, 
-                background: 'linear-gradient(90deg, #ff6b6b, #ffa502)',
-                borderRadius: '5px',
-                transition: 'width 0.3s ease'
-              }} 
-            />
+            Epoch #{currentEpoch}: Day {Math.floor((epochProgress / 100) * 14) + 1}/14
           </div>
-        </div>
-        <div style={{ 
-          minWidth: '50px', 
-          fontSize: '14px', 
-          fontWeight: '600', 
-          color: '#fff', 
-          textAlign: 'right' 
-        }}>
-          {epochProgress.toFixed(1)}%
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ 
+              flex: 1,
+              height: '10px', 
+              background: '#2e2f4a', 
+              borderRadius: '5px', 
+              overflow: 'hidden' 
+            }}>
+              <div 
+                style={{ 
+                  height: '100%', 
+                  width: `${epochProgress}%`, 
+                  background: 'linear-gradient(90deg, #ff6b6b, #ffa502)',
+                  borderRadius: '5px',
+                  transition: 'width 0.3s ease'
+                }} 
+              />
+            </div>
+            <div style={{ 
+              fontSize: '14px', 
+              fontWeight: '600', 
+              color: '#fff', 
+              minWidth: '40px',
+              textAlign: 'right' 
+            }}>
+              {epochProgress.toFixed(1)}%
+            </div>
+          </div>
         </div>
       </div>
     </div>
