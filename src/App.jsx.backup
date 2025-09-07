@@ -24,7 +24,7 @@ function App() {
 
   const [userStorage, setUserStorage] = useState('100');
   const [userStorageUnit, setUserStorageUnit] = useState('KB');
-  const [numberOfFiles, setNumberOfFiles] = useState('1');
+  const [numberOfFiles, setNumberOfFiles] = useState('10');
 
   useEffect(() => {
     const fetchPrices = async () => {
