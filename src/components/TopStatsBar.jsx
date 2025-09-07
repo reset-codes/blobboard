@@ -18,29 +18,34 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
 
   return (
     <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
       width: '100%',
       background: '#1a1b2d',
-      borderRadius: '12px',
-      border: '1px solid #2e2f4a',
       padding: '16px 24px',
-      marginBottom: '32px',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+      zIndex: 99,
+      boxSizing: 'border-box',
     }}>
       <div style={{ 
         display: 'flex', 
         justifyContent: 'space-between', 
         flexWrap: 'wrap',
-        gap: '24px'
+        gap: '24px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        padding: '0 clamp(1rem, 4vw, 2.5rem)'
       }}>
         {/* Storage Capacity Section */}
         <div style={{ flex: '1 1 45%', minWidth: '300px' }}>
           <div style={{ 
             fontSize: '14px', 
             fontWeight: '600', 
-            color: '#b7aaff',
+            color: '#fff',
             marginBottom: '8px'
           }}>
-            Storage Used: {totalDataStoredTB?.toLocaleString(undefined, { maximumFractionDigits: 2 })} TB
+            Storage Used: <span style={{ color: '#C584F6' }}>{totalDataStoredTB?.toLocaleString(undefined, { maximumFractionDigits: 2 })} TB</span> / <span style={{ color: '#97F0E5' }}>{(maxStorageCapacityTB / 1024)?.toFixed(2)} PB</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ 
@@ -54,7 +59,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
                 style={{ 
                   height: '100%', 
                   width: `${apiStoragePercentage || storagePercentage}%`, 
-                  background: 'linear-gradient(90deg, #6a5af9, #b7aaff)',
+                  background: 'linear-gradient(90deg, #C584F6, #9b59b6)',
                   borderRadius: '5px',
                   transition: 'width 0.3s ease'
                 }} 
@@ -77,10 +82,10 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
           <div style={{ 
             fontSize: '14px', 
             fontWeight: '600', 
-            color: '#b7aaff',
+            color: '#fff',
             marginBottom: '8px'
           }}>
-            Epoch #{currentEpoch}: Day {currentDayInEpoch}/{epochDurationDays}
+            Epoch <span style={{ color: '#C584F6' }}>{currentEpoch}</span>: ~<span style={{ color: '#97F0E5' }}>{epochDurationDays - currentDayInEpoch}</span> days left
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{ 
@@ -94,7 +99,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
                 style={{ 
                   height: '100%', 
                   width: `${epochProgress}%`, 
-                  background: 'linear-gradient(90deg, #ff6b6b, #ffa502)',
+                  background: 'linear-gradient(90deg, #97F0E5, #4ECDC4)',
                   borderRadius: '5px',
                   transition: 'width 0.3s ease'
                 }} 
@@ -107,7 +112,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
               minWidth: '40px',
               textAlign: 'right' 
             }}>
-              {epochProgress.toFixed(1)}%
+              {epochProgress.toFixed(0)}%
             </div>
           </div>
         </div>
