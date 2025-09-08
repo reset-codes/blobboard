@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-const RevenueSection = ({ baseCosts, revenue, totalDataStoredTB, setTotalDataStoredTB, frostPerMiB, setFrostPerMiB, walPrice, lastUpdated }) => {
+const RevenueSection = ({ isLoading, baseCosts, revenue, totalDataStoredTB, setTotalDataStoredTB, frostPerMiB, setFrostPerMiB, walPrice, lastUpdated }) => {
   const [editingFrost, setEditingFrost] = useState(false);
   const [editingTotalData, setEditingTotalData] = useState(false);
   const frostInputRef = useRef(null);
@@ -70,10 +70,18 @@ const RevenueSection = ({ baseCosts, revenue, totalDataStoredTB, setTotalDataSto
   const writeCostPerGB = (20000 * 1024 / 1000000000);
   const writeCostPerTB = (20000 * 1024 * 1024 / 1000000000);
 
-  return (
-    <>
+  if (isLoading) {
+    return (
       <div className="data-box" style={{ margin: '0 auto', maxWidth: 900 }}>
-        <div className="card-title">Simple Cost</div>
+        <div className="skeleton-loader" style={{ height: '600px' }}></div>
+      </div>
+    )
+  }
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+      <div className="data-box" style={{ margin: '0 auto', maxWidth: 900, width: '100%' }}>
+        <div className="card-title" style={{ textAlign: 'center' }}>Simple Cost</div>
         <div style={{ 
           display: 'grid', 
           gridTemplateColumns: '1fr 1fr', 
@@ -167,8 +175,17 @@ const RevenueSection = ({ baseCosts, revenue, totalDataStoredTB, setTotalDataSto
         alignItems: 'center',
         gap: 48,
         margin: '32px 0 8px 0',
+        flexWrap: 'wrap',
+        width: '100%',
+        maxWidth: 900
       }}>
-        <div style={{ fontSize: 18, color: '#C584F6', fontWeight: 600 }}>
+        <div style={{ 
+          fontSize: 18, 
+          color: '#C584F6', 
+          fontWeight: 600,
+          textAlign: 'center',
+          marginBottom: '10px'
+        }}>
           Frost per MiB per Epoch:&nbsp;
           {editingFrost ? (
             <input
@@ -201,7 +218,13 @@ const RevenueSection = ({ baseCosts, revenue, totalDataStoredTB, setTotalDataSto
           )}
           <span style={{ color: '#fff', fontWeight: 700, fontSize: 18, marginLeft: 2 }}>*</span>
         </div>
-        <div style={{ fontSize: 18, color: '#C584F6', fontWeight: 600 }}>
+        <div style={{ 
+          fontSize: 18, 
+          color: '#C584F6', 
+          fontWeight: 600,
+          textAlign: 'center',
+          marginBottom: '10px'
+        }}>
           Total Data Stored:&nbsp;
           {editingTotalData ? (
             <input
@@ -235,43 +258,43 @@ const RevenueSection = ({ baseCosts, revenue, totalDataStoredTB, setTotalDataSto
           <span style={{ color: '#fff', fontWeight: 700, fontSize: 18, marginLeft: 2 }}>*</span>
         </div>
       </div>
-      <div className="footnote" style={{ marginBottom: 24, marginTop: 0 }}>
+      <div className="footnote" style={{ marginBottom: 24, marginTop: 0, textAlign: 'center' }}>
         * You can click the values above to edit them.
       </div>
       
       {lastUpdated && (
-        <div className="disclaimer">
+        <div className="disclaimer" style={{ textAlign: 'center' }}>
           Last updated: {formatLastUpdated(lastUpdated)}
         </div>
       )}
 
-      <div className="revenue-section data-box" style={{ margin: '32px auto 0 auto', maxWidth: 900, marginBottom: '8rem' }}>
-        <div className="revenue-title">REVENUE</div>
-        <div className="revenue-sublabel" style={{ marginBottom: 10 }}>
+      <div className="revenue-section data-box" style={{ margin: '32px auto 0 auto', maxWidth: 900, marginBottom: '8rem', width: '100%' }}>
+        <div className="revenue-title" style={{ textAlign: 'center' }}>REVENUE</div>
+        <div className="revenue-sublabel" style={{ marginBottom: 10, textAlign: 'center' }}>
           Total Data Stored:&nbsp;
           <span className="revenue-sublabel" style={{ fontWeight: 700, fontSize: 15, textDecoration: 'underline dotted', cursor: 'pointer' }}>{totalDataStoredTB.toLocaleString()} TB</span>
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', marginTop: 12 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%', maxWidth: 420 }}>
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
-              <span className="revenue-value" style={{ fontSize: 20, lineHeight: 1.7 }}>{renderWalWithUsd(revenue.revenuePerDay, 2)}</span>
-              <span className="revenue-sublabel" style={{ fontSize: 20, color: '#C584F6', fontWeight: 600, minWidth: 80, textAlign: 'left' }}>per Day</span>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+              <span className="revenue-value" style={{ fontSize: 20, lineHeight: 1.7, textAlign: 'center' }}>{renderWalWithUsd(revenue.revenuePerDay, 2)}</span>
+              <span className="revenue-sublabel" style={{ fontSize: 20, color: '#C584F6', fontWeight: 600, minWidth: 80, textAlign: 'center' }}>per Day</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
-              <span className="revenue-value" style={{ fontSize: 20, lineHeight: 1.7 }}>{renderWalWithUsd(revenue.revenuePerMonth, 2)}</span>
-              <span className="revenue-sublabel" style={{ fontSize: 20, color: '#C584F6', fontWeight: 600, minWidth: 80, textAlign: 'left' }}>per Month</span>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+              <span className="revenue-value" style={{ fontSize: 20, lineHeight: 1.7, textAlign: 'center' }}>{renderWalWithUsd(revenue.revenuePerMonth, 2)}</span>
+              <span className="revenue-sublabel" style={{ fontSize: 20, color: '#C584F6', fontWeight: 600, minWidth: 80, textAlign: 'center' }}>per Month</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
-              <span className="revenue-value" style={{ fontSize: 20, lineHeight: 1.7 }}>{renderWalWithUsd(revenue.revenuePerYear, 2)}</span>
-              <span className="revenue-sublabel" style={{ fontSize: 20, color: '#C584F6', fontWeight: 600, minWidth: 80, textAlign: 'left' }}>per Year</span>
+            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+              <span className="revenue-value" style={{ fontSize: 20, lineHeight: 1.7, textAlign: 'center' }}>{renderWalWithUsd(revenue.revenuePerYear, 2)}</span>
+              <span className="revenue-sublabel" style={{ fontSize: 20, color: '#C584F6', fontWeight: 600, minWidth: 80, textAlign: 'center' }}>per Year</span>
             </div>
           </div>
         </div>
-        <div className="disclaimer" style={{ marginTop: 24 }}>
+        <div className="disclaimer" style={{ marginTop: 24, textAlign: 'center' }}>
           **The revenue is just based on the current storage price with the amount of data stored. It doesn't include the write cost and also the previous price and data. It is just a prediction on the current earnings; the actual data may be higher but not lower from now.
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
