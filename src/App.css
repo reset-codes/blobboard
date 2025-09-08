@@ -1,8 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .logo {
@@ -39,4 +38,24 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.skeleton-loader {
+  background-color: #1a1b2d;
+  border-radius: 12px;
+  height: 400px;
+  width: 100%;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #1a1b2d;
+  }
+  50% {
+    background-color: #2e2f4a;
+  }
+  100% {
+    background-color: #1a1b2d;
+  }
 }
