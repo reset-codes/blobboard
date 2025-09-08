@@ -27,37 +27,42 @@ function App() {
   const [userStorage, setUserStorage] = useState('100');
   const [userStorageUnit, setUserStorageUnit] = useState('KB');
   const [numberOfFiles, setNumberOfFiles] = useState('1');
-  const [isLoading, setIsLoading] = useState(true);
-
 
   useEffect(() => {
-    const fetchAllData = async () => {
-      setIsLoading(true);
+    const fetchPrices = async () => {
       try {
-        const pricesPromise = fetch('https://api.coingecko.com/api/v3/simple/price?ids=walrus-2,sui,bitcoin&vs_currencies=usd')
-          .then(res => res.json());
-        const walrusDataPromise = fetch('https://data-walrus.onrender.com/api/walrus/latest')
-          .then(res => res.json());
-
-        const [pricesData, walrusData] = await Promise.all([pricesPromise, walrusDataPromise]);
-
-        if (pricesData['walrus-2']?.usd) setWalPrice(pricesData['walrus-2'].usd);
-        if (pricesData.sui?.usd) setSuiPrice(pricesData.sui.usd);
-        if (pricesData.bitcoin?.usd) setBtcPrice(pricesData.bitcoin.usd);
-
-        if (walrusData.data) {
-          setFrostPerMiB(walrusData.data.storage_price);
-          setTotalDataStoredTB(walrusData.data.storage_capacity.used_tb);
-          setLastUpdated(walrusData.data.last_updated);
-          setEpochInfo(walrusData.data.epoch_info);
-        }
+        const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=walrus-2,sui,bitcoin&vs_currencies=usd');
+        const data = await res.json();
+        if (data['walrus-2']?.usd) setWalPrice(data['walrus-2'].usd);
+        if (data.sui?.usd) setSuiPrice(data.sui.usd);
+        if (data.bitcoin?.usd) setBtcPrice(data.bitcoin.usd);
       } catch (e) {
-        console.error("Failed to fetch data:", e);
-      } finally {
-        setIsLoading(false);
+        console.error("Failed to fetch prices:", e);
       }
     };
-    fetchAllData();
+    fetchPrices();
+  }, []);
+
+  useEffect(() => {
+    const fetchWalrusData = async () => {
+      try {
+        const res = await fetch('https://data-walrus.onrender.com/api/walrus/latest');
+        const data = await res.json();
+        if (data.data) {
+          // Update frostPerMiB with storage_price from API
+          setFrostPerMiB(data.data.storage_price);
+          // Update totalDataStoredTB with used_tb from API
+          setTotalDataStoredTB(data.data.storage_capacity.used_tb);
+          // Update lastUpdated with the timestamp from API
+          setLastUpdated(data.data.last_updated);
+          // Update epochInfo with epoch data from API
+          setEpochInfo(data.data.epoch_info);
+        }
+      } catch (e) {
+        console.error("Failed to fetch Walrus data:", e);
+      }
+    };
+    fetchWalrusData();
   }, []);
 
   useEffect(() => {
@@ -77,16 +82,11 @@ function App() {
 
   return (
     <div className="app-container">
-      <div className="responsive-main main-content">
-        <TopStatsBar 
-          isLoading={isLoading} 
-          totalDataStoredTB={totalDataStoredTB} 
-          frostPerMiB={frostPerMiB} 
-          epochInfo={epochInfo} 
-        />
+      <div className="responsive-main" style={{ paddingBottom: '200px' }}>
+        {baseCosts && <TopStatsBar totalDataStoredTB={totalDataStoredTB} frostPerMiB={frostPerMiB} epochInfo={epochInfo} />}
         <Header />
         
-        {!isLoading ? (
+        {baseCosts && (
           <>
             <div className="section-spacing">
               <StorageCalculator 
@@ -102,22 +102,20 @@ function App() {
             <div className="section-spacing">
               <CostResults userCosts={userCosts} />
             </div>
+            <div className="section-spacing">
+              <RevenueSection 
+                baseCosts={baseCosts} 
+                revenue={revenue}
+                totalDataStoredTB={totalDataStoredTB}
+                setTotalDataStoredTB={setTotalDataStoredTB}
+                frostPerMiB={frostPerMiB}
+                setFrostPerMiB={setFrostPerMiB}
+                walPrice={walPrice}
+                lastUpdated={lastUpdated}
+              />
+            </div>
           </>
-        ) : null}
-        
-        <div className="section-spacing">
-          <RevenueSection 
-            isLoading={isLoading}
-            baseCosts={baseCosts} 
-            revenue={revenue}
-            totalDataStoredTB={totalDataStoredTB}
-            setTotalDataStoredTB={setTotalDataStoredTB}
-            frostPerMiB={frostPerMiB}
-            setFrostPerMiB={setFrostPerMiB}
-            walPrice={walPrice}
-            lastUpdated={lastUpdated}
-          />
-        </div>
+        )}
       </div>
       <Footer walPrice={walPrice} suiPrice={suiPrice} btcPrice={btcPrice} />
     </div>
@@ -125,3 +123,4 @@ function App() {
 }
 
 export default App;
+
