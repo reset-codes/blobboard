@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
+const TopStatsBar = ({ isLoading, totalDataStoredTB, frostPerMiB, epochInfo }) => {
   // Calculate storage capacity percentage from API data
   // We'll use the percentage directly from the API, but also calculate it for verification
   const maxStorageCapacityTB = 3.7 * 1024; // 3.7 PB converted to TB
@@ -16,6 +16,27 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
   const epochDurationDays = 14;
   const currentDayInEpoch = Math.floor((epochProgress / 100) * epochDurationDays) + 1;
 
+  if (isLoading) {
+    return (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        background: '#1a1b2d',
+        padding: 'clamp(8px, 2vw, 16px) clamp(12px, 3vw, 24px)',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+        zIndex: 99,
+        boxSizing: 'border-box',
+        textAlign: 'center',
+        fontSize: 'clamp(14px, 3vw, 18px)',
+        color: 'white',
+      }}>
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <div style={{
       position: 'fixed',
@@ -23,7 +44,7 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
       left: 0,
       width: '100%',
       background: '#1a1b2d',
-      padding: '16px 24px',
+      padding: 'clamp(8px, 2vw, 16px) clamp(12px, 3vw, 24px)',
       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
       zIndex: 99,
       boxSizing: 'border-box',
@@ -32,22 +53,36 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
         display: 'flex', 
         justifyContent: 'space-between', 
         flexWrap: 'wrap',
-        gap: '24px',
+        gap: 'clamp(8px, 3vw, 24px)',
         maxWidth: '1200px',
         margin: '0 auto',
-        padding: '0 clamp(1rem, 4vw, 2.5rem)'
+        padding: '0 clamp(1rem, 4vw, 2.5rem)',
+        boxSizing: 'border-box'
       }}>
         {/* Storage Capacity Section */}
-        <div style={{ flex: '1 1 45%', minWidth: '300px' }}>
+        <div style={{ 
+          flex: '1 1 45%', 
+          minWidth: 'clamp(250px, 40vw, 300px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}>
           <div style={{ 
-            fontSize: '14px', 
+            fontSize: 'clamp(11px, 2.5vw, 14px)', 
             fontWeight: '600', 
             color: '#fff',
-            marginBottom: '8px'
+            marginBottom: 'clamp(3px, 1vw, 8px)',
+            textAlign: 'center'
           }}>
             Storage Used: <span style={{ color: '#C584F6' }}>{totalDataStoredTB?.toLocaleString(undefined, { maximumFractionDigits: 2 })} TB</span> / <span style={{ color: '#97F0E5' }}>{(maxStorageCapacityTB / 1024)?.toFixed(2)} PB</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '12px',
+            width: '100%',
+            maxWidth: '500px'
+          }}>
             <div style={{ 
               flex: 1,
               height: '10px', 
@@ -66,10 +101,10 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
               />
             </div>
             <div style={{ 
-              fontSize: '14px', 
+              fontSize: 'clamp(11px, 2.5vw, 14px)', 
               fontWeight: '600', 
               color: '#fff', 
-              minWidth: '40px',
+              minWidth: 'clamp(30px, 6vw, 40px)',
               textAlign: 'right' 
             }}>
               {(apiStoragePercentage || storagePercentage).toFixed(1)}%
@@ -78,16 +113,29 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
         </div>
         
         {/* Epoch Progress Section */}
-        <div style={{ flex: '1 1 45%', minWidth: '300px' }}>
+        <div style={{ 
+          flex: '1 1 45%', 
+          minWidth: 'clamp(250px, 40vw, 300px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}>
           <div style={{ 
-            fontSize: '14px', 
+            fontSize: 'clamp(11px, 2.5vw, 14px)', 
             fontWeight: '600', 
             color: '#fff',
-            marginBottom: '8px'
+            marginBottom: 'clamp(3px, 1vw, 8px)',
+            textAlign: 'center'
           }}>
             Epoch <span style={{ color: '#C584F6' }}>{currentEpoch}</span>: ~<span style={{ color: '#97F0E5' }}>{epochDurationDays - currentDayInEpoch}</span> days left
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '12px',
+            width: '100%',
+            maxWidth: '500px'
+          }}>
             <div style={{ 
               flex: 1,
               height: '10px', 
@@ -106,10 +154,10 @@ const TopStatsBar = ({ totalDataStoredTB, frostPerMiB, epochInfo }) => {
               />
             </div>
             <div style={{ 
-              fontSize: '14px', 
+              fontSize: 'clamp(11px, 2.5vw, 14px)', 
               fontWeight: '600', 
               color: '#fff', 
-              minWidth: '40px',
+              minWidth: 'clamp(30px, 6vw, 40px)',
               textAlign: 'right' 
             }}>
               {epochProgress.toFixed(0)}%
