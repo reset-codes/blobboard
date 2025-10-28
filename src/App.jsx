@@ -97,6 +97,8 @@ function App() {
                 numberOfFiles={numberOfFiles}
                 setNumberOfFiles={setNumberOfFiles}
                 totalStorage={totalStorage}
+                frostPerMiB={frostPerMiB}
+                setFrostPerMiB={setFrostPerMiB}
               />
             </div>
             <div className="section-spacing">
@@ -110,12 +112,7 @@ function App() {
             isLoading={isLoading}
             baseCosts={baseCosts} 
             revenue={revenue}
-            totalDataStoredTB={totalDataStoredTB}
-            setTotalDataStoredTB={setTotalDataStoredTB}
-            frostPerMiB={frostPerMiB}
-            setFrostPerMiB={setFrostPerMiB}
             walPrice={walPrice}
-            lastUpdated={lastUpdated}
           />
         </div>
       </div>
