@@ -2,7 +2,7 @@
 import React from 'react';
 
 const StorageCalculator = ({
-  userStorage, setUserStorage, userStorageUnit, setUserStorageUnit, numberOfFiles, setNumberOfFiles, totalStorage
+  userStorage, setUserStorage, userStorageUnit, setUserStorageUnit, numberOfFiles, setNumberOfFiles, totalStorage, frostPerMiB, setFrostPerMiB
 }) => {
 
   const handleFilesChange = (e) => {
@@ -13,6 +13,11 @@ const StorageCalculator = ({
   const handleStorageChange = (e) => {
     const value = e.target.value.replace(/[^0-9.]/g, '');
     setUserStorage(value);
+  };
+
+  const handleFrostChange = (e) => {
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    setFrostPerMiB(value);
   };
 
   const isLargeFile = parseFloat(userStorage) > 10 && userStorageUnit === 'MB';
@@ -118,6 +123,36 @@ const StorageCalculator = ({
               fontWeight: 600,
             }}
           />
+        </div>
+
+        <div style={{ 
+          display: 'flex', 
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '8px',
+          width: '100%'
+        }}>
+          <span className="card-title" style={{ fontSize: 18, textTransform: 'none' }}>Frost per MiB:</span>
+          <input
+            type="number"
+            min={1}
+            step={1}
+            value={frostPerMiB}
+            onChange={handleFrostChange}
+            style={{
+              width: 100,
+              fontSize: 18,
+              padding: '4px 10px',
+              borderRadius: 6,
+              border: '1px solid #C584F6',
+              background: '#23243a',
+              color: '#fff',
+              textAlign: 'right',
+              fontWeight: 600,
+            }}
+          />
+          <span className="card-title" style={{ fontSize: 16, textTransform: 'none', opacity: 0.7 }}>per Epoch</span>
         </div>
       </div>
 

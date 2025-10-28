@@ -15,6 +15,16 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, frostPerMiB, epochInfo }) =
   // Calculate current day in epoch (14-day cycle)
   const epochDurationDays = 14;
   const currentDayInEpoch = Math.floor((epochProgress / 100) * epochDurationDays) + 1;
+  
+  // Calculate hours left in epoch
+  const epochDurationHours = epochDurationDays * 24; // 14 days = 336 hours
+  const epochProgressHours = (epochProgress / 100) * epochDurationHours;
+  const hoursLeftInEpoch = Math.max(0, epochDurationHours - epochProgressHours);
+  
+  // Determine what to display for time left
+  const displayTimeLeft = hoursLeftInEpoch < 24 
+    ? `${Math.ceil(hoursLeftInEpoch)} hours` 
+    : `${epochDurationDays - currentDayInEpoch} days`;
 
   if (isLoading) {
     return (
@@ -131,7 +141,7 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, frostPerMiB, epochInfo }) =
             marginBottom: 'clamp(3px, 1vw, 8px)',
             textAlign: 'center'
           }}>
-            Epoch <span style={{ color: '#C584F6' }}>{currentEpoch}</span>: ~<span style={{ color: '#97F0E5' }}>{epochDurationDays - currentDayInEpoch}</span> days left
+            Epoch <span style={{ color: '#C584F6' }}>{currentEpoch}</span>: ~<span style={{ color: '#97F0E5' }}>{displayTimeLeft}</span> left
           </div>
           <div style={{ 
             display: 'flex', 

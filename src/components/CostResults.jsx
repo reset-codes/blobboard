@@ -24,7 +24,7 @@ const CostResults = ({ userCosts }) => {
   // Function to render cost with WAL as main value and USD as subtext
   const renderCost = (walValue, usdValue) => (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ fontSize: '1.2em', fontWeight: '600' }}>{formatNumber(walValue)} WAL</div>
+      <div style={{ fontSize: '1em', fontWeight: '600' }}>{formatNumber(walValue)} WAL</div>
       <div style={{ fontSize: '0.8em', opacity: 0.7, marginTop: '4px' }}>${formatNumber(usdValue)} USD</div>
     </div>
   );
@@ -50,10 +50,10 @@ const CostResults = ({ userCosts }) => {
         <table style={{ width: '100%', borderCollapse: 'collapse', background: 'none', color: '#fff', fontSize: 16, minWidth: '600px' }}>
           <thead>
             <tr className="table-header">
-              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a' }}>Period</th>
-              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a' }}>Blob</th>
-              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a' }}>Quilt</th>
-              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a' }}>Savings (USD)</th>
+              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a', fontSize: '18px' }}>Period</th>
+              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a', fontSize: '18px' }}>Blob</th>
+              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a', fontSize: '18px' }}>Quilt</th>
+              <th style={{ padding: '10px 8px', borderBottom: '1px solid #2e2f4a', fontSize: '18px' }}>Savings (USD)</th>
             </tr>
           </thead>
           <tbody>
@@ -66,7 +66,7 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostDayWAL, quiltCostDayUSD)}
               </td>
               <td style={{ padding: '10px 8px', fontWeight: 700, color: getSavingsColor(savingsDayUSD) }}>
-                <div>${formatNumber(savingsDayUSD)}</div>
+                <div style={{ fontSize: '16px' }}>${formatNumber(savingsDayUSD)}</div>
                 <div style={{ fontSize: '70%', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
@@ -79,7 +79,7 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostMonthWAL, quiltCostMonthUSD)}
               </td>
               <td style={{ padding: '10px 8px', fontWeight: 700, color: getSavingsColor(savingsMonthUSD) }}>
-                <div>${formatNumber(savingsMonthUSD)}</div>
+                <div style={{ fontSize: '16px' }}>${formatNumber(savingsMonthUSD)}</div>
                 <div style={{ fontSize: '70%', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
@@ -92,7 +92,7 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostYearWAL, quiltCostYearUSD)}
               </td>
               <td style={{ padding: '10px 8px', fontWeight: 700, color: getSavingsColor(savingsYearUSD) }}>
-                <div>${formatNumber(savingsYearUSD)}</div>
+                <div style={{ fontSize: '16px' }}>${formatNumber(savingsYearUSD)}</div>
                 <div style={{ fontSize: '70%', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
