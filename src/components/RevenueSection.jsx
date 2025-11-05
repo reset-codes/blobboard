@@ -35,8 +35,8 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-      <div className="data-box" style={{ margin: '0 auto', maxWidth: 900, width: '100%', padding: 'clamp(12px, 3vw, 16px)' }}>
-        <div className="card-title" style={{ textAlign: 'center', marginBottom: '12px', fontSize: 'clamp(18px, 3vw, 22px)' }}>Simple Cost</div>
+      <div className="data-box" style={{ margin: '0 auto', maxWidth: 1100, width: '100%', padding: 'clamp(12px, 3vw, 16px)' }}>
+        <div className="card-title" style={{ textAlign: 'center', marginBottom: '12px', fontSize: 'clamp(18px, 3.5vw, 24px)', color: '#C584F6', fontWeight: 600 }}>Simple Cost</div>
         <div className="revenue-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',

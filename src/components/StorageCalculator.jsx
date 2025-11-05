@@ -25,7 +25,7 @@ const StorageCalculator = ({
   return (
     <div className="storage-calculator" style={{
       margin: '40px auto 0 auto',
-      maxWidth: 900,
+      maxWidth: 1100,
       background: '#18192b',
       borderRadius: 18,
       border: '2px solid #2e2f4a',
@@ -36,7 +36,7 @@ const StorageCalculator = ({
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      <div className="card-title" style={{ fontSize: 'clamp(18px, 3.5vw, 24px)', marginBottom: 18, textAlign: 'center' }}>
+      <div className="card-title" style={{ fontSize: 'clamp(18px, 3.5vw, 24px)', marginBottom: 18, textAlign: 'center', color: '#C584F6', fontWeight: 600 }}>
         Storage Cost Calculator
       </div>
 
