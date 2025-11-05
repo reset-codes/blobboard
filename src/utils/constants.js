@@ -8,7 +8,7 @@ export const BTC_ICON = 'https://assets.coingecko.com/coins/images/1/small/bitco
 
 export const FROST_PER_MIB_PER_EPOCH = 11000;
 
-export const WRITE_FEE_USD = 0.01; // Placeholder value for the cost of a single write transaction
+export const WRITE_FEE_FROST = 20000; // Cost of a single write transaction in Frost
 export const MAX_FILES_PER_QUILT = 660;
 
 export const UNIT_TO_TB = {

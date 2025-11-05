@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { WRITE_FEE_FROST } from '../utils/constants';
 
 const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
 
@@ -21,9 +22,9 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
 
   if (!baseCosts || !revenue) return null;
 
-  // Calculate write costs
-  const writeCostPerGB = (20000 * 1024 / 1000000000);
-  const writeCostPerTB = (20000 * 1024 * 1024 / 1000000000);
+  // Calculate write costs using the constant
+  const writeCostPerGB = (WRITE_FEE_FROST * 1024 / 1000000000);
+  const writeCostPerTB = (WRITE_FEE_FROST * 1024 * 1024 / 1000000000);
 
   if (isLoading) {
     return (
