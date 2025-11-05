@@ -30,11 +30,15 @@ html,
 
 .pixel-heading {
   font-family: 'NeueBit', 'Press Start 2P', 'VT323', monospace;
-  font-size: 84px;
+  font-size: clamp(32px, 8vw, 84px);
   font-weight: bold;
   color: #b7aaff;
   letter-spacing: 2px;
-  text-align: left;
+  text-align: center;
+  margin: 0 auto clamp(32px, 5vw, 64px) auto;
+  padding: clamp(80px, 15vw, 110px) 0 0 0;
+  display: block;
+  width: 100%;
 }
 
 .pixel-title {
@@ -811,4 +815,106 @@ footer.app-footer {
     display: block !important;
     visibility: visible !important;
   }
+}
+
+/* Revenue Grid - Responsive 2x2 to 1 column on mobile */
+.revenue-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1px;
+  background-color: #2e2f4a;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .revenue-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .revenue-grid > div {
+    border-left: none !important;
+    border-top: 1px solid #2e2f4a !important;
+  }
+
+  .revenue-grid > div:first-child {
+    border-top: none !important;
+  }
+}
+
+/* Top Stats Bar - Single column on mobile */
+@media (max-width: 600px) {
+  .top-stats-section {
+    min-width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+}
+
+/* Storage Calculator Form - Stack on mobile */
+@media (max-width: 480px) {
+  .storage-calculator-form {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .storage-calculator-form input,
+  .storage-calculator-form select {
+    width: 100% !important;
+    max-width: 200px;
+  }
+}
+
+/* Cost Comparison Table - Mobile card layout */
+.cost-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+@media (max-width: 600px) {
+  .cost-comparison-table thead {
+    display: none;
+  }
+
+  .cost-comparison-table tbody,
+  .cost-comparison-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .cost-comparison-table tr {
+    margin-bottom: 16px;
+    border: 1px solid #2e2f4a;
+    border-radius: 12px;
+    padding: 12px;
+    background: #18192b;
+  }
+
+  .cost-comparison-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 !important;
+    border: none !important;
+  }
+
+  .cost-comparison-table td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #C584F6;
+    flex: 0 0 40%;
+  }
+
+  .cost-comparison-table td > div {
+    flex: 1;
+    text-align: right;
+  }
+}
+
+/* Cost Results Container */
+.cost-results-container {
+  margin: 0 auto;
+  max-width: 900px;
 }

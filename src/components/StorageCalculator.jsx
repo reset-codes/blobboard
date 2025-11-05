@@ -23,20 +23,20 @@ const StorageCalculator = ({
   const isLargeFile = parseFloat(userStorage) > 10 && userStorageUnit === 'MB';
 
   return (
-    <div style={{ 
-      margin: '40px auto 0 auto', 
-      maxWidth: 900, 
-      background: '#18192b', 
-      borderRadius: 18, 
-      border: '2px solid #2e2f4a', 
-      boxShadow: '0 2px 16px 0 rgba(0,0,0,0.10)', 
-      padding: '24px', 
+    <div className="storage-calculator" style={{
+      margin: '40px auto 0 auto',
+      maxWidth: 900,
+      background: '#18192b',
+      borderRadius: 18,
+      border: '2px solid #2e2f4a',
+      boxShadow: '0 2px 16px 0 rgba(0,0,0,0.10)',
+      padding: 'clamp(12px, 3vw, 24px)',
       color: '#fff',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      <div className="card-title" style={{ fontSize: 24, marginBottom: 18, textAlign: 'center' }}>
+      <div className="card-title" style={{ fontSize: 'clamp(18px, 3.5vw, 24px)', marginBottom: 18, textAlign: 'center' }}>
         Storage Cost Calculator
       </div>
 
@@ -49,15 +49,15 @@ const StorageCalculator = ({
         gap: '16px',
         width: '100%'
       }}>
-        <div style={{ 
-          display: 'flex', 
+        <div className="storage-calculator-form" style={{
+          display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: 'center',
           gap: '8px',
           width: '100%'
         }}>
-          <span className="card-title" style={{ fontSize: 18, textTransform: 'none' }}>Size per File:</span>
+          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none' }}>Size per File:</span>
           <input
             type="number"
             min={0}
@@ -65,8 +65,8 @@ const StorageCalculator = ({
             value={userStorage}
             onChange={handleStorageChange}
             style={{
-              width: 100,
-              fontSize: 18,
+              width: 'clamp(80px, 20vw, 100px)',
+              fontSize: 'clamp(14px, 2.5vw, 18px)',
               padding: '4px 10px',
               borderRadius: 6,
               border: '1px solid #C584F6',
@@ -80,7 +80,7 @@ const StorageCalculator = ({
             value={userStorageUnit}
             onChange={e => setUserStorageUnit(e.target.value)}
             style={{
-              fontSize: 18,
+              fontSize: 'clamp(14px, 2.5vw, 18px)',
               padding: '4px 10px',
               borderRadius: 6,
               border: '1px solid #C584F6',
@@ -96,15 +96,15 @@ const StorageCalculator = ({
           </select>
         </div>
 
-        <div style={{ 
-          display: 'flex', 
+        <div className="storage-calculator-form" style={{
+          display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: 'center',
           gap: '8px',
           width: '100%'
         }}>
-          <span className="card-title" style={{ fontSize: 18, textTransform: 'none' }}>Number of Files:</span>
+          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none' }}>Number of Files:</span>
           <input
             type="number"
             min={1}
@@ -112,8 +112,8 @@ const StorageCalculator = ({
             value={numberOfFiles}
             onChange={handleFilesChange}
             style={{
-              width: 100,
-              fontSize: 18,
+              width: 'clamp(80px, 20vw, 100px)',
+              fontSize: 'clamp(14px, 2.5vw, 18px)',
               padding: '4px 10px',
               borderRadius: 6,
               border: '1px solid #C584F6',
@@ -125,15 +125,15 @@ const StorageCalculator = ({
           />
         </div>
 
-        <div style={{ 
-          display: 'flex', 
+        <div className="storage-calculator-form" style={{
+          display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
           alignItems: 'center',
           gap: '8px',
           width: '100%'
         }}>
-          <span className="card-title" style={{ fontSize: 18, textTransform: 'none' }}>Frost per MiB:</span>
+          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none' }}>Frost per MiB:</span>
           <input
             type="number"
             min={1}
@@ -141,8 +141,8 @@ const StorageCalculator = ({
             value={frostPerMiB}
             onChange={handleFrostChange}
             style={{
-              width: 100,
-              fontSize: 18,
+              width: 'clamp(80px, 20vw, 100px)',
+              fontSize: 'clamp(14px, 2.5vw, 18px)',
               padding: '4px 10px',
               borderRadius: 6,
               border: '1px solid #C584F6',
@@ -152,7 +152,7 @@ const StorageCalculator = ({
               fontWeight: 600,
             }}
           />
-          <span className="card-title" style={{ fontSize: 16, textTransform: 'none', opacity: 0.7 }}>per Epoch</span>
+          <span className="card-title" style={{ fontSize: 'clamp(13px, 2vw, 16px)', textTransform: 'none', opacity: 0.7 }}>per Epoch</span>
         </div>
       </div>
 

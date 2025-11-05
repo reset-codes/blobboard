@@ -35,9 +35,9 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-      <div className="data-box" style={{ margin: '0 auto', maxWidth: 900, width: '100%', padding: '16px' }}>
-        <div className="card-title" style={{ textAlign: 'center', marginBottom: '12px' }}>Simple Cost</div>
-        <div style={{
+      <div className="data-box" style={{ margin: '0 auto', maxWidth: 900, width: '100%', padding: 'clamp(12px, 3vw, 16px)' }}>
+        <div className="card-title" style={{ textAlign: 'center', marginBottom: '12px', fontSize: 'clamp(18px, 3vw, 22px)' }}>Simple Cost</div>
+        <div className="revenue-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gridTemplateRows: '1fr 1fr',
@@ -51,24 +51,24 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           {/* Top Left - WAL per 1 GB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '16px 8px',
+            padding: 'clamp(12px, 3vw, 16px) clamp(6px, 1.5vw, 8px)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             textAlign: 'center'
           }}>
-            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: '15px' }}>WAL per 1 GB</div>
-            <div className="card-value" style={{ fontSize: '18px' }}>
+            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>WAL per 1 GB</div>
+            <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
               {renderWalWithUsd(baseCosts.walPerGBPerEpoch, 8)}
             </div>
-            <div className="card-sublabel" style={{ marginTop: '4px', fontSize: '13px' }}>(Epoch)</div>
+            <div className="card-sublabel" style={{ marginTop: '4px', fontSize: 'clamp(12px, 1.8vw, 13px)' }}>(Epoch)</div>
           </div>
 
           {/* Top Right - WAL per 1 TB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '16px 8px',
+            padding: 'clamp(12px, 3vw, 16px) clamp(6px, 1.5vw, 8px)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -76,17 +76,17 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
             textAlign: 'center',
             borderLeft: '1px solid #2e2f4a'
           }}>
-            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: '15px' }}>WAL per 1 TB</div>
-            <div className="card-value" style={{ fontSize: '18px' }}>
+            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>WAL per 1 TB</div>
+            <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
               {renderWalWithUsd(baseCosts.walPerTBPerEpoch, 6)}
             </div>
-            <div className="card-sublabel" style={{ marginTop: '4px', fontSize: '13px' }}>(Epoch)</div>
+            <div className="card-sublabel" style={{ marginTop: '4px', fontSize: 'clamp(12px, 1.8vw, 13px)' }}>(Epoch)</div>
           </div>
 
           {/* Bottom Left - Write Cost per 1 GB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '16px 8px',
+            padding: 'clamp(12px, 3vw, 16px) clamp(6px, 1.5vw, 8px)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -94,8 +94,8 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
             textAlign: 'center',
             borderTop: '1px solid #2e2f4a'
           }}>
-            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: '15px' }}>Write Cost per 1 GB</div>
-            <div className="card-value" style={{ fontSize: '18px' }}>
+            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>Write Cost per 1 GB</div>
+            <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
               {renderWalWithUsd(writeCostPerGB.toFixed(6), 6)}
             </div>
           </div>
@@ -103,7 +103,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           {/* Bottom Right - Write Cost per 1 TB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '16px 8px',
+            padding: 'clamp(12px, 3vw, 16px) clamp(6px, 1.5vw, 8px)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -112,8 +112,8 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
             borderLeft: '1px solid #2e2f4a',
             borderTop: '1px solid #2e2f4a'
           }}>
-            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: '15px' }}>Write Cost per 1 TB</div>
-            <div className="card-value" style={{ fontSize: '18px' }}>
+            <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>Write Cost per 1 TB</div>
+            <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
               {renderWalWithUsd(writeCostPerTB.toFixed(6), 6)}
             </div>
           </div>
