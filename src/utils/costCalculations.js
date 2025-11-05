@@ -16,10 +16,10 @@ export const calculateBaseWalCosts = (frostPerMiB) => {
   const walPerTBPerDay = walPerTBPerEpoch / 14;
   
   return {
-    walPerGBPerEpoch: walPerGBPerEpoch.toFixed(8),
-    walPerTBPerEpoch: walPerTBPerEpoch.toFixed(6),
-    walPerTBPerDay: walPerTBPerDay.toFixed(6),
-    walPerTBPerYear: (walPerTBPerDay * 365).toFixed(6),
+    walPerGBPerEpoch: walPerGBPerEpoch.toFixed(4),
+    walPerTBPerEpoch: walPerTBPerEpoch.toFixed(4),
+    walPerTBPerDay: walPerTBPerDay.toFixed(4),
+    walPerTBPerYear: (walPerTBPerDay * 365).toFixed(4),
   };
 };
 
@@ -84,8 +84,8 @@ export const calculateRevenue = (totalDataStoredTB, baseCosts) => {
   const revenuePerYear = revenuePerDay * DAYS_IN_YEAR; // Use DAYS_IN_YEAR
 
   return {
-    revenuePerDay: revenuePerDay.toFixed(6),
-    revenuePerMonth: revenuePerMonth.toFixed(6),
-    revenuePerYear: revenuePerYear.toFixed(6),
+    revenuePerDay: revenuePerDay.toFixed(4),
+    revenuePerMonth: revenuePerMonth.toFixed(4),
+    revenuePerYear: revenuePerYear.toFixed(4),
   };
 };
