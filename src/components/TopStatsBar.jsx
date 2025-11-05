@@ -74,9 +74,9 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, frostPerMiB, epochInfo }) =
         boxSizing: 'border-box'
       }}>
         {/* Storage Capacity Section */}
-        <div style={{ 
-          flex: '1 1 45%', 
-          minWidth: 'clamp(250px, 40vw, 300px)',
+        <div className="top-stats-section" style={{
+          flex: '1 1 45%',
+          minWidth: 'clamp(200px, 35vw, 300px)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center'
@@ -127,9 +127,9 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, frostPerMiB, epochInfo }) =
         </div>
         
         {/* Epoch Progress Section */}
-        <div style={{ 
-          flex: '1 1 45%', 
-          minWidth: 'clamp(250px, 40vw, 300px)',
+        <div className="top-stats-section" style={{
+          flex: '1 1 45%',
+          minWidth: 'clamp(200px, 35vw, 300px)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center'

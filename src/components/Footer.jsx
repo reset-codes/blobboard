@@ -22,7 +22,7 @@ const Footer = ({ walPrice, suiPrice, btcPrice }) => {
         </span>
         
         <span className="price-item">
-                    <img src={BTC_ICON} alt="BTC" style={{ width: 32, height: 32, borderRadius: '50%', background: '#C584F6', border: '2px solid #23243a' }} />
+          <img src={BTC_ICON} alt="BTC" className="price-icon" style={{ background: '#C584F6' }} />
           <span className="price-symbol">BTC</span>
           <span className="price-value">${btcPrice.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
         </span>
