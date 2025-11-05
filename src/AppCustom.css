@@ -856,7 +856,7 @@ footer.app-footer {
 @media (max-width: 480px) {
   .storage-calculator-form {
     flex-direction: column !important;
-    align-items: flex-start !important;
+    align-items: center !important;
     gap: 8px !important;
   }
 
@@ -864,6 +864,7 @@ footer.app-footer {
   .storage-calculator-form select {
     width: 100% !important;
     max-width: 200px;
+    margin: 0 auto;
   }
 }
 
