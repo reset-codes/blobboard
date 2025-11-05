@@ -51,7 +51,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           {/* Top Left - WAL per 1 GB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '12px',
+            padding: '16px 8px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -68,7 +68,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           {/* Top Right - WAL per 1 TB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '12px',
+            padding: '16px 8px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -86,7 +86,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           {/* Bottom Left - Write Cost per 1 GB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '12px',
+            padding: '16px 8px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
@@ -103,7 +103,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           {/* Bottom Right - Write Cost per 1 TB */}
           <div style={{
             backgroundColor: '#18192b',
-            padding: '12px',
+            padding: '16px 8px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',

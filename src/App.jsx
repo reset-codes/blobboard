@@ -85,11 +85,20 @@ function App() {
           epochInfo={epochInfo} 
         />
         <Header />
-        
+
+        <div className="section-spacing">
+          <RevenueSection
+            isLoading={isLoading}
+            baseCosts={baseCosts}
+            revenue={revenue}
+            walPrice={walPrice}
+          />
+        </div>
+
         {!isLoading ? (
           <>
             <div className="section-spacing">
-              <StorageCalculator 
+              <StorageCalculator
                 userStorage={userStorage}
                 setUserStorage={setUserStorage}
                 userStorageUnit={userStorageUnit}
@@ -106,15 +115,6 @@ function App() {
             </div>
           </>
         ) : null}
-        
-        <div className="section-spacing">
-          <RevenueSection 
-            isLoading={isLoading}
-            baseCosts={baseCosts} 
-            revenue={revenue}
-            walPrice={walPrice}
-          />
-        </div>
       </div>
       <Footer walPrice={walPrice} suiPrice={suiPrice} btcPrice={btcPrice} />
     </div>
