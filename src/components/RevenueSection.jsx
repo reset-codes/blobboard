@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { WRITE_FEE_FROST } from '../utils/constants';
 
 const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {

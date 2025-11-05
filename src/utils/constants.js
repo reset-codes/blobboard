@@ -1,5 +1,5 @@
 
-export const WAL_FALLBACK_PRICE = 0.4;
+export const WAL_FALLBACK_PRICE = 0.25;
 export const SUI_FALLBACK_PRICE = 1.0;
 
 export const WAL_ICON = 'https://coinmeta.polymedia.app/img/coins/0x356a26eb9e012a68958082340d4c4116e7f55615cf27affcff209cf0ae544f59-wal-WAL.svg';
