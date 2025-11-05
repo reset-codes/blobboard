@@ -21,7 +21,6 @@ function App() {
 
   const [frostPerMiB, setFrostPerMiB] = useState(FROST_PER_MIB_PER_EPOCH);
   const [totalDataStoredTB, setTotalDataStoredTB] = useState(509);
-  const [lastUpdated, setLastUpdated] = useState(null);
   const [epochInfo, setEpochInfo] = useState(null);
 
   const [userStorage, setUserStorage] = useState('100');
@@ -35,9 +34,15 @@ function App() {
       setIsLoading(true);
       try {
         const pricesPromise = fetch('https://api.coingecko.com/api/v3/simple/price?ids=walrus-2,sui,bitcoin&vs_currencies=usd')
-          .then(res => res.json());
+          .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+          });
         const walrusDataPromise = fetch('https://data-walrus.onrender.com/api/walrus/latest')
-          .then(res => res.json());
+          .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.json();
+          });
 
         const [pricesData, walrusData] = await Promise.all([pricesPromise, walrusDataPromise]);
 
@@ -48,7 +53,6 @@ function App() {
         if (walrusData.data) {
           setFrostPerMiB(walrusData.data.storage_price);
           setTotalDataStoredTB(walrusData.data.storage_capacity.used_tb);
-          setLastUpdated(walrusData.data.last_updated);
           setEpochInfo(walrusData.data.epoch_info);
         }
       } catch (e) {
@@ -78,11 +82,10 @@ function App() {
   return (
     <div className="app-container">
       <div className="responsive-main main-content">
-        <TopStatsBar 
-          isLoading={isLoading} 
-          totalDataStoredTB={totalDataStoredTB} 
-          frostPerMiB={frostPerMiB} 
-          epochInfo={epochInfo} 
+        <TopStatsBar
+          isLoading={isLoading}
+          totalDataStoredTB={totalDataStoredTB}
+          epochInfo={epochInfo}
         />
         <Header />
 

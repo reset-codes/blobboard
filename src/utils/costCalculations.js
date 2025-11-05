@@ -25,11 +25,11 @@ export const calculateBaseWalCosts = (frostPerMiB) => {
 
 export const calculateUserCosts = (storageDetails, baseCosts, walPrice) => {
   const { userStorage, userStorageUnit, numberOfFiles } = storageDetails;
-  
+
   const numFiles = parseFloat(numberOfFiles) || 0;
   const sizePerFile = parseFloat(userStorage) || 0;
-  
-  if (numFiles === 0 || sizePerFile === 0) return null;
+
+  if (numFiles === 0 || sizePerFile === 0 || !walPrice || walPrice === 0) return null;
 
   const sizePerFileTB = sizePerFile * (UNIT_TO_TB[userStorageUnit] || 0);
   const totalStorageTB = sizePerFileTB * numFiles;

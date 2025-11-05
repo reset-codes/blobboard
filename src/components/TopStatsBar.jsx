@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TopStatsBar = ({ isLoading, totalDataStoredTB, frostPerMiB, epochInfo }) => {
+const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
   // Calculate storage capacity percentage from API data
   // We'll use the percentage directly from the API, but also calculate it for verification
   const maxStorageCapacityTB = 3.7 * 1024; // 3.7 PB converted to TB
