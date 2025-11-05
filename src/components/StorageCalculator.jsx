@@ -25,7 +25,7 @@ const StorageCalculator = ({
   return (
     <div className="storage-calculator" style={{
       margin: '40px auto 0 auto',
-      maxWidth: 1100,
+      maxWidth: 850,
       background: '#18192b',
       borderRadius: 18,
       border: '2px solid #2e2f4a',

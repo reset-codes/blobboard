@@ -24,15 +24,15 @@ const CostResults = ({ userCosts }) => {
   // Function to render cost with WAL as main value and USD as subtext
   const renderCost = (walValue, usdValue) => (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', fontWeight: '600' }}>{formatNumber(walValue)} WAL</div>
-      <div style={{ fontSize: 'clamp(12px, 2vw, 14px)', opacity: 0.7, marginTop: '4px' }}>${formatNumber(usdValue)} USD</div>
+      <div style={{ fontSize: 'clamp(12px, 2vw, 16px)', fontWeight: '600' }}>{formatNumber(walValue)} WAL</div>
+      <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.7, marginTop: '4px' }}>${formatNumber(usdValue)} USD</div>
     </div>
   );
 
   return (
     <div className="cost-results-container" style={{
       margin: '0 auto',
-      maxWidth: 1100,
+      maxWidth: 850,
       background: '#18192b',
       borderRadius: 18,
       border: '2px solid #2e2f4a',
@@ -43,22 +43,22 @@ const CostResults = ({ userCosts }) => {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      <div style={{ fontSize: 'clamp(18px, 3.5vw, 24px)', marginBottom: 18, textAlign: 'center', color: '#C584F6', fontWeight: 600 }}>
+      <div style={{ fontSize: 'clamp(20px, 4vw, 26px)', marginBottom: 18, textAlign: 'center', color: '#C584F6', fontWeight: 600 }}>
         Cost Comparison
       </div>
       <div style={{ width: '100%', overflowX: 'auto' }}>
-        <table className="cost-comparison-table" style={{ width: '100%', borderCollapse: 'collapse', background: 'none', color: '#fff', fontSize: 'clamp(14px, 2.5vw, 18px)' }}>
+        <table className="cost-comparison-table" style={{ width: '100%', borderCollapse: 'collapse', background: 'none', color: '#fff', fontSize: 'clamp(12px, 2vw, 16px)' }}>
           <thead>
             <tr className="table-header">
-              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(14px, 2.5vw, 18px)' }}>Period</th>
-              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(14px, 2.5vw, 18px)' }}>Blob</th>
-              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(14px, 2.5vw, 18px)' }}>Quilt</th>
-              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(14px, 2.5vw, 18px)' }}>Savings (USD)</th>
+              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(13px, 2.2vw, 17px)' }}>Period</th>
+              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(13px, 2.2vw, 17px)' }}>Blob</th>
+              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(13px, 2.2vw, 17px)' }}>Quilt</th>
+              <th style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', borderBottom: '1px solid #2e2f4a', fontSize: 'clamp(13px, 2.2vw, 17px)' }}>Savings (USD)</th>
             </tr>
           </thead>
           <tbody>
             <tr className="table-body" style={{ textAlign: 'center' }}>
-              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#C584F6', fontWeight: 600, fontSize: 'clamp(14px, 2.5vw, 18px)' }}>1 Day</td>
+              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#C584F6', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Day</td>
               <td data-label="Blob" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)' }}>
                 {renderCost(individualCostDayWAL, individualCostDayUSD)}
               </td>
@@ -66,12 +66,12 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostDayWAL, quiltCostDayUSD)}
               </td>
               <td data-label="Savings" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', fontWeight: 700, color: getSavingsColor(savingsDayUSD) }}>
-                <div style={{ fontSize: 'clamp(14px, 2.5vw, 18px)' }}>${formatNumber(savingsDayUSD)}</div>
-                <div style={{ fontSize: 'clamp(12px, 2vw, 14px)', opacity: 0.8, marginTop: 2 }}>USD</div>
+                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatNumber(savingsDayUSD)}</div>
+                <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
             <tr className="table-body" style={{ textAlign: 'center' }}>
-              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#C584F6', fontWeight: 600, fontSize: 'clamp(14px, 2.5vw, 18px)' }}>1 Month</td>
+              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#C584F6', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Month</td>
               <td data-label="Blob" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)' }}>
                 {renderCost(individualCostMonthWAL, individualCostMonthUSD)}
               </td>
@@ -79,12 +79,12 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostMonthWAL, quiltCostMonthUSD)}
               </td>
               <td data-label="Savings" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', fontWeight: 700, color: getSavingsColor(savingsMonthUSD) }}>
-                <div style={{ fontSize: 'clamp(14px, 2.5vw, 18px)' }}>${formatNumber(savingsMonthUSD)}</div>
-                <div style={{ fontSize: 'clamp(12px, 2vw, 14px)', opacity: 0.8, marginTop: 2 }}>USD</div>
+                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatNumber(savingsMonthUSD)}</div>
+                <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
             <tr className="table-body" style={{ textAlign: 'center' }}>
-              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#C584F6', fontWeight: 600, fontSize: 'clamp(14px, 2.5vw, 18px)' }}>1 Year</td>
+              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#C584F6', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Year</td>
               <td data-label="Blob" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)' }}>
                 {renderCost(individualCostYearWAL, individualCostYearUSD)}
               </td>
@@ -92,8 +92,8 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostYearWAL, quiltCostYearUSD)}
               </td>
               <td data-label="Savings" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', fontWeight: 700, color: getSavingsColor(savingsYearUSD) }}>
-                <div style={{ fontSize: 'clamp(14px, 2.5vw, 18px)' }}>${formatNumber(savingsYearUSD)}</div>
-                <div style={{ fontSize: 'clamp(12px, 2vw, 14px)', opacity: 0.8, marginTop: 2 }}>USD</div>
+                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatNumber(savingsYearUSD)}</div>
+                <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
           </tbody>
