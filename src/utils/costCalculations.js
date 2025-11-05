@@ -1,5 +1,5 @@
 
-import { UNIT_TO_TB, WRITE_FEE_USD, MAX_FILES_PER_QUILT } from './constants';
+import { UNIT_TO_TB, WRITE_FEE_FROST, MAX_FILES_PER_QUILT } from './constants';
 
 const DAYS_IN_MONTH = 30; // Approximate
 const DAYS_IN_YEAR = 365;
@@ -37,8 +37,12 @@ export const calculateUserCosts = (storageDetails, baseCosts, walPrice) => {
   const costPerTBPerYear = baseCosts ? parseFloat(baseCosts.walPerTBPerYear) : 0;
   const storageCostYearUSD = (totalStorageTB * costPerTBPerYear) * walPrice;
 
+  // Calculate write fee in USD from Frost constant
+  const writeFeeWAL = WRITE_FEE_FROST / 1000000000; // Convert frost to WAL
+  const writeFeeUSD = writeFeeWAL * walPrice; // Convert WAL to USD
+
   // Individual Files Calculation
-  const individualWriteCostUSD = numFiles * WRITE_FEE_USD;
+  const individualWriteCostUSD = numFiles * writeFeeUSD;
   
   const individualCostYearUSD = storageCostYearUSD + individualWriteCostUSD;
   const individualCostMonthUSD = individualCostYearUSD / 12;
@@ -46,7 +50,7 @@ export const calculateUserCosts = (storageDetails, baseCosts, walPrice) => {
 
   // Quilt Calculation
   const numQuiltTransactions = Math.ceil(numFiles / MAX_FILES_PER_QUILT);
-  const quiltWriteCostUSD = numQuiltTransactions * WRITE_FEE_USD;
+  const quiltWriteCostUSD = numQuiltTransactions * writeFeeUSD;
 
   const quiltCostYearUSD = storageCostYearUSD + quiltWriteCostUSD;
   const quiltCostMonthUSD = quiltCostYearUSD / 12;

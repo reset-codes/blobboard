@@ -88,33 +88,29 @@ function App() {
 
         <div className="section-spacing">
           <RevenueSection
-            isLoading={isLoading}
+            isLoading={false}
             baseCosts={baseCosts}
             revenue={revenue}
             walPrice={walPrice}
           />
         </div>
 
-        {!isLoading ? (
-          <>
-            <div className="section-spacing">
-              <StorageCalculator
-                userStorage={userStorage}
-                setUserStorage={setUserStorage}
-                userStorageUnit={userStorageUnit}
-                setUserStorageUnit={setUserStorageUnit}
-                numberOfFiles={numberOfFiles}
-                setNumberOfFiles={setNumberOfFiles}
-                totalStorage={totalStorage}
-                frostPerMiB={frostPerMiB}
-                setFrostPerMiB={setFrostPerMiB}
-              />
-            </div>
-            <div className="section-spacing">
-              <CostResults userCosts={userCosts} />
-            </div>
-          </>
-        ) : null}
+        <div className="section-spacing">
+          <StorageCalculator
+            userStorage={userStorage}
+            setUserStorage={setUserStorage}
+            userStorageUnit={userStorageUnit}
+            setUserStorageUnit={setUserStorageUnit}
+            numberOfFiles={numberOfFiles}
+            setNumberOfFiles={setNumberOfFiles}
+            totalStorage={totalStorage}
+            frostPerMiB={frostPerMiB}
+            setFrostPerMiB={setFrostPerMiB}
+          />
+        </div>
+        <div className="section-spacing">
+          <CostResults userCosts={userCosts} />
+        </div>
       </div>
       <Footer walPrice={walPrice} suiPrice={suiPrice} btcPrice={btcPrice} />
     </div>

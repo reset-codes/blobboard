@@ -103,6 +103,24 @@ const CostResults = ({ userCosts }) => {
       <div className="disclaimer" style={{ textAlign: 'center', marginTop: '16px' }}>
         *All costs are approximate and based on current network rates. Actual costs may vary.
       </div>
+      <div style={{ textAlign: 'center', marginTop: '12px' }}>
+        <a 
+          href="https://docs.wal.app/usage/quilt.html#quilt-walrus-native-batch-store-tool" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{ 
+            color: '#C584F6', 
+            textDecoration: 'none', 
+            fontSize: 'clamp(12px, 2vw, 14px)',
+            fontWeight: '500',
+            transition: 'color 0.2s ease'
+          }}
+          onMouseEnter={(e) => e.target.style.color = '#E6B3FF'}
+          onMouseLeave={(e) => e.target.style.color = '#C584F6'}
+        >
+          For more info look at the Quilt docs →
+        </a>
+      </div>
     </div>
   );
 };
