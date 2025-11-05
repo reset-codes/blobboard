@@ -4,10 +4,10 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
 
 
 
-  const renderWalWithUsd = (walValue, decimals = 2) => {
+  const renderWalWithUsd = (walValue, walDecimals = 4) => {
     const walNum = parseFloat(walValue) || 0;
-    const walFormatted = walNum.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-    const usdFormatted = (walNum * walPrice).toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    const walFormatted = walNum.toLocaleString(undefined, { minimumFractionDigits: walDecimals, maximumFractionDigits: walDecimals });
+    const usdFormatted = (walNum * walPrice).toLocaleString(undefined, { minimumFractionDigits: 5, maximumFractionDigits: 5 });
     return (
       <>
         <span>{walFormatted} WAL</span>
@@ -60,7 +60,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           }}>
             <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>WAL per 1 GB</div>
             <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
-              {renderWalWithUsd(baseCosts.walPerGBPerEpoch, 8)}
+              {renderWalWithUsd(baseCosts.walPerGBPerEpoch, 4)}
             </div>
             <div className="card-sublabel" style={{ marginTop: '4px', fontSize: 'clamp(12px, 1.8vw, 13px)' }}>(Epoch)</div>
           </div>
@@ -78,7 +78,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           }}>
             <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>WAL per 1 TB</div>
             <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
-              {renderWalWithUsd(baseCosts.walPerTBPerEpoch, 6)}
+              {renderWalWithUsd(baseCosts.walPerTBPerEpoch, 4)}
             </div>
             <div className="card-sublabel" style={{ marginTop: '4px', fontSize: 'clamp(12px, 1.8vw, 13px)' }}>(Epoch)</div>
           </div>
@@ -96,7 +96,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           }}>
             <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>Write Cost per 1 GB</div>
             <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
-              {renderWalWithUsd(writeCostPerGB.toFixed(6), 6)}
+              {renderWalWithUsd(writeCostPerGB.toFixed(4), 4)}
             </div>
           </div>
 
@@ -114,7 +114,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
           }}>
             <div className="card-sublabel" style={{ marginBottom: '6px', fontSize: 'clamp(13px, 2vw, 15px)' }}>Write Cost per 1 TB</div>
             <div className="card-value" style={{ fontSize: 'clamp(16px, 2.5vw, 18px)' }}>
-              {renderWalWithUsd(writeCostPerTB.toFixed(6), 6)}
+              {renderWalWithUsd(writeCostPerTB.toFixed(4), 4)}
             </div>
           </div>
         </div>

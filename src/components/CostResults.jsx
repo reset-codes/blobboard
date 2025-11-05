@@ -14,7 +14,8 @@ const CostResults = ({ userCosts }) => {
     savingsDayUSD, savingsMonthUSD, savingsYearUSD,
   } = userCosts;
 
-  const formatNumber = (num) => num.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const formatUSD = (num) => num.toLocaleString(undefined, { minimumFractionDigits: 5, maximumFractionDigits: 5 });
+  const formatWAL = (num) => num.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 });
 
   // Determine color for savings - green if positive, grey if zero or negative
   const getSavingsColor = (savings) => {
@@ -24,8 +25,8 @@ const CostResults = ({ userCosts }) => {
   // Function to render cost with WAL as main value and USD as subtext
   const renderCost = (walValue, usdValue) => (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ fontSize: 'clamp(12px, 2vw, 16px)', fontWeight: '600' }}>{formatNumber(walValue)} WAL</div>
-      <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.7, marginTop: '4px' }}>${formatNumber(usdValue)} USD</div>
+      <div style={{ fontSize: 'clamp(12px, 2vw, 16px)', fontWeight: '600' }}>{formatWAL(walValue)} WAL</div>
+      <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.7, marginTop: '4px' }}>${formatUSD(usdValue)} USD</div>
     </div>
   );
 
@@ -66,7 +67,7 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostDayWAL, quiltCostDayUSD)}
               </td>
               <td data-label="Savings" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', fontWeight: 700, color: getSavingsColor(savingsDayUSD) }}>
-                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatNumber(savingsDayUSD)}</div>
+                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatUSD(savingsDayUSD)}</div>
                 <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
@@ -79,7 +80,7 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostMonthWAL, quiltCostMonthUSD)}
               </td>
               <td data-label="Savings" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', fontWeight: 700, color: getSavingsColor(savingsMonthUSD) }}>
-                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatNumber(savingsMonthUSD)}</div>
+                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatUSD(savingsMonthUSD)}</div>
                 <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
@@ -92,7 +93,7 @@ const CostResults = ({ userCosts }) => {
                 {renderCost(quiltCostYearWAL, quiltCostYearUSD)}
               </td>
               <td data-label="Savings" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', fontWeight: 700, color: getSavingsColor(savingsYearUSD) }}>
-                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatNumber(savingsYearUSD)}</div>
+                <div style={{ fontSize: 'clamp(12px, 2vw, 16px)' }}>${formatUSD(savingsYearUSD)}</div>
                 <div style={{ fontSize: 'clamp(11px, 1.8vw, 13px)', opacity: 0.8, marginTop: 2 }}>USD</div>
               </td>
             </tr>
