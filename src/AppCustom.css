@@ -906,6 +906,7 @@ footer.app-footer {
     font-weight: 600;
     color: #C584F6;
     flex: 0 0 40%;
+    font-size: 14px;
   }
 
   .cost-comparison-table td > div {
