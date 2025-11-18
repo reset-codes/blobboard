@@ -1,12 +1,18 @@
 import React from 'react';
 
 const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
-  // Calculate storage capacity percentage from API data
-  // We'll use the percentage directly from the API, but also calculate it for verification
-  const maxStorageCapacityTB = 3.7 * 1024; // 3.7 PB converted to TB
-  const storagePercentage = Math.min(100, (totalDataStoredTB / maxStorageCapacityTB) * 100);
-  // Or we can use the API provided percentage if available:
+  // Get API storage percentage
   const apiStoragePercentage = epochInfo?.storage_capacity?.percentage || 0;
+  
+  // Calculate max storage capacity dynamically from API data
+  // If API provides percentage and used TB, calculate max capacity
+  // Otherwise fall back to 3.7 PB as a default
+  const maxStorageCapacityTB = (apiStoragePercentage > 0 && totalDataStoredTB > 0)
+    ? (totalDataStoredTB / (apiStoragePercentage / 100))
+    : 3.7 * 1024; // Fallback: 3.7 PB converted to TB
+  
+  // Calculate storage percentage as fallback if API doesn't provide it
+  const storagePercentage = Math.min(100, (totalDataStoredTB / maxStorageCapacityTB) * 100);
   
   // Use API data for epoch progress
   const epochProgress = epochInfo?.epoch_percentage_completed || 0;
