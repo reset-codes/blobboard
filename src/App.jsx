@@ -53,7 +53,11 @@ function App() {
         if (walrusData.data) {
           setFrostPerMiB(walrusData.data.storage_price);
           setTotalDataStoredTB(walrusData.data.storage_capacity.used_tb);
-          setEpochInfo(walrusData.data.epoch_info);
+          // Store the complete epoch_info with storage_capacity included
+          setEpochInfo({
+            ...walrusData.data.epoch_info,
+            storage_capacity: walrusData.data.storage_capacity
+          });
         }
       } catch (e) {
         console.error("Failed to fetch data:", e);
