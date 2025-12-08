@@ -11,7 +11,7 @@ const RevenueSection = ({ isLoading, baseCosts, revenue, walPrice }) => {
       <>
         <span style={{ color: isPurple ? '#C584F6' : '#97F0E5' }}>{walFormatted} WAL</span>
         <br />
-        <span style={{ fontSize: '50%', opacity: 0.6, display: 'block', marginTop: 2, color: '#fff' }}>
+        <span style={{ fontSize: '50%', opacity: 0.6, display: 'block', marginTop: 2, color: '#9ca3af' }}>
           ${usdFormatted} USD
         </span>
       </>

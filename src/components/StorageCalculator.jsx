@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const StorageCalculator = ({
@@ -36,7 +35,7 @@ const StorageCalculator = ({
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      <div className="card-title" style={{ fontSize: 'clamp(18px, 3.5vw, 24px)', marginBottom: 18, textAlign: 'center', color: '#C584F6', fontWeight: 600 }}>
+      <div className="card-title" style={{ fontSize: 'clamp(18px, 3.5vw, 24px)', marginBottom: 18, textAlign: 'center', color: '#fff', fontWeight: 600 }}>
         Storage Cost Calculator
       </div>
 
@@ -57,7 +56,7 @@ const StorageCalculator = ({
           gap: '8px',
           width: '100%'
         }}>
-          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none' }}>Size per File:</span>
+          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none', color: '#fff' }}>Size per File:</span>
           <input
             type="number"
             min={0}
@@ -104,7 +103,7 @@ const StorageCalculator = ({
           gap: '8px',
           width: '100%'
         }}>
-          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none' }}>Number of Files:</span>
+          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none', color: '#fff' }}>Number of Files:</span>
           <input
             type="number"
             min={1}
@@ -133,7 +132,7 @@ const StorageCalculator = ({
           gap: '8px',
           width: '100%'
         }}>
-          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none' }}>Frost per MiB:</span>
+          <span className="card-title" style={{ fontSize: 'clamp(14px, 2.5vw, 18px)', textTransform: 'none', color: '#fff' }}>Frost per MiB:</span>
           <input
             type="number"
             min={1}
@@ -152,7 +151,7 @@ const StorageCalculator = ({
               fontWeight: 600,
             }}
           />
-          <span className="card-title" style={{ fontSize: 'clamp(13px, 2vw, 16px)', textTransform: 'none', opacity: 0.7 }}>per Epoch</span>
+          <span className="card-title" style={{ fontSize: 'clamp(13px, 2vw, 16px)', textTransform: 'none', opacity: 0.7, color: '#9ca3af' }}>per Epoch</span>
         </div>
       </div>
 

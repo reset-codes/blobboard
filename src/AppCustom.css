@@ -118,7 +118,7 @@ html,
   font-family: 'Inter', 'JetBrains Mono', Arial, sans-serif;
   font-size: 22px;
   font-weight: bold;
-  color: #C584F6;
+  color: #fff;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -138,7 +138,7 @@ html,
   font-family: 'Inter', 'JetBrains Mono', Arial, sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #C584F6;
+  color: #9ca3af;
   opacity: 0.8;
   text-align: center;
   line-height: 1.5;
@@ -150,7 +150,7 @@ html,
   font-family: 'Inter', 'JetBrains Mono', Arial, sans-serif;
   font-size: 22px;
   font-weight: bold;
-  color: #C584F6;
+  color: #9ca3af;
   text-transform: uppercase;
   text-align: center;
 }
@@ -167,7 +167,7 @@ html,
   font-family: 'Press Start 2P', 'VT323', monospace;
   font-size: 32px;
   font-weight: bold;
-  color: #C584F6;
+  color: #fff;
   text-align: center;
 }
 
@@ -183,7 +183,7 @@ html,
   font-family: 'Inter', 'JetBrains Mono', Arial, sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #C584F6;
+  color: #9ca3af;
   opacity: 0.7;
   text-align: center;
 }
@@ -191,7 +191,7 @@ html,
 .footer-text {
   font-family: 'Inter', 'JetBrains Mono', Arial, sans-serif;
   font-size: 15px;
-  color: #C584F6;
+  color: #9ca3af;
   opacity: 0.7;
   text-align: center;
 }
@@ -366,7 +366,7 @@ button {
 
 .data-title {
   font-size: 1.1rem;
-  color: #C584F6;
+  color: #fff;
   margin-bottom: 10px;
   letter-spacing: 1px;
   text-align: center;
@@ -382,7 +382,7 @@ button {
 
 .data-unit {
   font-size: 1rem;
-  color: #C584F6;
+  color: #97F0E5;
   text-align: center;
 }
 
@@ -401,7 +401,7 @@ button {
 }
 
 .section-title {
-  color: #C584F6;
+  color: #fff;
   font-size: 1.3rem;
   margin: 32px 0 18px 0;
   text-align: center;
@@ -427,7 +427,7 @@ button {
 }
 
 .result-table th {
-  color: #C584F6;
+  color: #9ca3af;
   font-weight: 600;
   font-size: 1.05rem;
 }
@@ -574,7 +574,7 @@ button {
 
 .footer-conversion-info {
   text-align: center;
-  color: #C584F6;
+  color: #9ca3af;
   font-size: 14px;
   margin-bottom: 8px;
   letter-spacing: 0.5px;
@@ -623,7 +623,7 @@ button {
 }
 
 .price-symbol {
-  color: #C584F6;
+  color: #fff;
   font-weight: 600;
   font-size: 16px;
   letter-spacing: 0.5px;
@@ -641,7 +641,7 @@ button {
 .footer-credit {
   width: 100%;
   text-align: center;
-  color: #C584F6;
+  color: #9ca3af;
   font-size: 14px;
   opacity: 0.7;
   letter-spacing: 0.5px;
@@ -659,7 +659,7 @@ button {
 
 .footer-credit a {
   font-weight: 600;
-  color: #C584F6;
+  color: #97F0E5;
   text-decoration: underline;
 }
 
@@ -766,27 +766,6 @@ button {
   .footer-credit {
     font-size: 10px;
     margin-top: 3px;
-  }
-}
-
-/* M
-ain content padding to account for footer */
-.main-content {
-  padding-bottom: 100px;
-  /* Reduced padding for desktop - just enough to clear footer */
-}
-
-@media (max-width: 768px) {
-  .main-content {
-    padding-bottom: 70px;
-    /* Reduced padding for mobile */
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    padding-bottom: 60px;
-    /* Minimal padding for very small screens */
   }
 }
 
@@ -904,7 +883,7 @@ footer.app-footer {
   .cost-comparison-table td:before {
     content: attr(data-label);
     font-weight: 600;
-    color: #C584F6;
+    color: #9ca3af;
     flex: 0 0 40%;
     font-size: 14px;
   }
