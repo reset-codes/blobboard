@@ -58,7 +58,7 @@ const CostResults = ({ userCosts }) => {
           </thead>
           <tbody>
             <tr className="table-body" style={{ textAlign: 'center' }}>
-              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#97F0E5', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Day</td>
+              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#fff', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Day</td>
               <td data-label="Blob" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)' }}>
                 {renderCost(individualCostDayWAL, individualCostDayUSD)}
               </td>
@@ -71,7 +71,7 @@ const CostResults = ({ userCosts }) => {
               </td>
             </tr>
             <tr className="table-body" style={{ textAlign: 'center' }}>
-              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#97F0E5', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Month</td>
+              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#fff', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Month</td>
               <td data-label="Blob" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)' }}>
                 {renderCost(individualCostMonthWAL, individualCostMonthUSD)}
               </td>
@@ -84,7 +84,7 @@ const CostResults = ({ userCosts }) => {
               </td>
             </tr>
             <tr className="table-body" style={{ textAlign: 'center' }}>
-              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#97F0E5', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Year</td>
+              <td data-label="Period" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)', color: '#fff', fontWeight: 600, fontSize: 'clamp(12px, 2vw, 16px)' }}>1 Year</td>
               <td data-label="Blob" style={{ padding: 'clamp(10px, 2vw, 12px) clamp(6px, 1.5vw, 10px)' }}>
                 {renderCost(individualCostYearWAL, individualCostYearUSD)}
               </td>
