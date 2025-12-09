@@ -8,7 +8,7 @@ import RevenueSection from './components/RevenueSection';
 import StorageCalculator from './components/StorageCalculator';
 import CostResults from './components/CostResults';
 import { calculateBaseWalCosts, calculateUserCosts, calculateRevenue } from './utils/costCalculations';
-import { WAL_FALLBACK_PRICE, SUI_FALLBACK_PRICE, FROST_PER_MIB_PER_EPOCH, UNIT_TO_TB } from './utils/constants';
+import { WAL_FALLBACK_PRICE, SUI_FALLBACK_PRICE, FROST_PER_MIB_PER_EPOCH, UNIT_TO_TB, WALRUS_API_BASE } from './utils/constants';
 
 function App() {
   const [baseCosts, setBaseCosts] = useState(null);
@@ -38,7 +38,7 @@ function App() {
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             return res.json();
           });
-        const walrusDataPromise = fetch('https://data-walrus.onrender.com/api/walrus/latest')
+        const walrusDataPromise = fetch(`${WALRUS_API_BASE}/latest`)
           .then(res => {
             if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
             return res.json();
@@ -51,13 +51,48 @@ function App() {
         if (pricesData.bitcoin?.usd) setBtcPrice(pricesData.bitcoin.usd);
 
         if (walrusData.data) {
-          setFrostPerMiB(walrusData.data.storage_price);
-          setTotalDataStoredTB(walrusData.data.storage_capacity.used_tb);
-          // Store the complete epoch_info with storage_capacity included
-          setEpochInfo({
-            ...walrusData.data.epoch_info,
-            storage_capacity: walrusData.data.storage_capacity
+          console.log('✅ Walrus API Full Response:', walrusData);
+          
+          // Extract epoch_info with fallback
+          const epochInfoData = walrusData.data.epoch_info || {};
+          const storageCapacityData = walrusData.data.storage_capacity || {};
+          
+          console.log('📊 Parsed Data:', {
+            storage_price: walrusData.data.storage_price,
+            used_tb: storageCapacityData.used_tb,
+            total_pb: storageCapacityData.total_pb,
+            percentage: storageCapacityData.percentage,
+            current_epoch: epochInfoData.current_epoch,
+            epoch_progress: epochInfoData.epoch_percentage_completed,
+            has_epoch_info: !!walrusData.data.epoch_info,
+            cached: walrusData.cached
           });
+          
+          setFrostPerMiB(walrusData.data.storage_price);
+          setTotalDataStoredTB(storageCapacityData.used_tb);
+          
+          // The new API includes epoch_info directly in data with storage_capacity
+          if (walrusData.data.epoch_info) {
+            const newEpochInfo = {
+              current_epoch: epochInfoData.current_epoch,
+              epoch_percentage_completed: epochInfoData.epoch_percentage_completed,
+              source: epochInfoData.source,
+              storage_capacity: storageCapacityData
+            };
+            console.log('🔄 Setting epochInfo to:', newEpochInfo);
+            setEpochInfo(newEpochInfo);
+          } else {
+            console.warn('⚠️ No epoch_info in API response, using fallback');
+            // Set fallback epoch info
+            setEpochInfo({
+              current_epoch: 12,
+              epoch_percentage_completed: 50,
+              source: 'fallback',
+              storage_capacity: storageCapacityData
+            });
+          }
+        } else {
+          console.error('❌ No data in Walrus API response:', walrusData);
         }
       } catch (e) {
         console.error("Failed to fetch data:", e);

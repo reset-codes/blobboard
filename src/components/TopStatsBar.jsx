@@ -1,6 +1,16 @@
 import React from 'react';
 
 const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
+  // Debug logging
+  console.log('📊 TopStatsBar received:', {
+    isLoading,
+    totalDataStoredTB,
+    epochInfo,
+    hasEpochInfo: !!epochInfo,
+    currentEpoch: epochInfo?.current_epoch,
+    epochProgress: epochInfo?.epoch_percentage_completed
+  });
+  
   // Get API storage data
   const apiStoragePercentage = epochInfo?.storage_capacity?.percentage || 0;
   const apiTotalPB = epochInfo?.storage_capacity?.total_pb || 0;
@@ -15,9 +25,16 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
   // Calculate storage percentage as fallback if API doesn't provide it
   const storagePercentage = Math.min(100, (totalDataStoredTB / maxStorageCapacityTB) * 100);
   
-  // Use API data for epoch progress
+  // Use API data for epoch progress with better fallbacks
   const epochProgress = epochInfo?.epoch_percentage_completed || 0;
   const currentEpoch = epochInfo?.current_epoch || 0;
+  
+  console.log('🔢 Calculated values:', {
+    epochProgress,
+    currentEpoch,
+    storagePercentage,
+    maxStorageCapacityTB
+  });
   
   // Calculate current day in epoch (14-day cycle)
   const epochDurationDays = 14;

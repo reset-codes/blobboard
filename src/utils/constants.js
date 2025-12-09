@@ -1,3 +1,29 @@
+// API Endpoints
+// Walrus API Documentation:
+// - Latest data: GET /api/walrus/latest
+// - Historical data: GET /api/walrus/history?limit=<number>
+// - Statistics: GET /api/walrus/stats
+// Response structure:
+// {
+//   "status": "success",
+//   "timestamp": "ISO-8601",
+//   "data": {
+//     "storage_price": number (Frost per MiB per epoch),
+//     "storage_capacity": {
+//       "used_tb": number,
+//       "total_pb": number,
+//       "percentage": number
+//     },
+//     "last_updated": "YYYY-MM-DD HH:MM:SS",
+//     "epoch_info": {
+//       "current_epoch": number,
+//       "epoch_percentage_completed": number,
+//       "source": string
+//     }
+//   },
+//   "cached": boolean
+// }
+export const WALRUS_API_BASE = 'https://walrus-api.walrus-api.workers.dev/api/walrus';
 
 export const WAL_FALLBACK_PRICE = 0.25;
 export const SUI_FALLBACK_PRICE = 1.0;
