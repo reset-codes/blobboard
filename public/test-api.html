@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walrus API Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #1a1b2d;
+            color: #fff;
+        }
+        .result {
+            background: #2e2f4a;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        pre {
+            background: #1a1b2d;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .success { color: #97F0E5; }
+        .error { color: #ff6b6b; }
+        button {
+            background: #C584F6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #9b59b6;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Walrus API Direct Test</h1>
+    <button onclick="testAPI()">Test API</button>
+    
+    <div id="results"></div>
+
+    <script>
+        async function testAPI() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Loading...</p>';
+            
+            try {
+                const response = await fetch('https://walrus-api.walrus-api.workers.dev/api/walrus/latest');
+                const data = await response.json();
+                
+                let html = '<div class="result">';
+                html += '<h2 class="success">✅ API Response Received</h2>';
+                html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                html += '</div>';
+                
+                html += '<div class="result">';
+                html += '<h2>📊 Extracted Data</h2>';
+                html += '<ul>';
+                html += `<li><strong>Storage Price:</strong> ${data.data.storage_price} Frost/MiB</li>`;
+                html += `<li><strong>Used Storage:</strong> ${data.data.storage_capacity.used_tb} TB</li>`;
+                html += `<li><strong>Total Storage:</strong> ${data.data.storage_capacity.total_pb} PB</li>`;
+                html += `<li><strong>Storage %:</strong> ${data.data.storage_capacity.percentage}%</li>`;
+                html += `<li><strong>Current Epoch:</strong> ${data.data.epoch_info?.current_epoch || 'MISSING ❌'}</li>`;
+                html += `<li><strong>Epoch Progress:</strong> ${data.data.epoch_info?.epoch_percentage_completed || 'MISSING ❌'}%</li>`;
+                html += `<li><strong>Last Updated:</strong> ${data.data.last_updated}</li>`;
+                html += `<li><strong>Cached:</strong> ${data.cached}</li>`;
+                html += '</ul>';
+                html += '</div>';
+                
+                html += '<div class="result">';
+                html += '<h2>🎯 What Should Display</h2>';
+                html += '<p style="font-size: 18px;">Storage Used: <strong style="color:#C584F6">' + data.data.storage_capacity.used_tb + ' TB</strong> / <strong style="color:#97F0E5">' + data.data.storage_capacity.total_pb + ' PB</strong> → ' + data.data.storage_capacity.percentage + '%</p>';
+                html += '<p style="font-size: 18px;">Epoch <strong style="color:#C584F6">' + (data.data.epoch_info?.current_epoch || 0) + '</strong>: ~<strong style="color:#97F0E5">7 days</strong> left → ' + (data.data.epoch_info?.epoch_percentage_completed || 0).toFixed(0) + '%</p>';
+                html += '</div>';
+                
+                if (!data.data.epoch_info) {
+                    html += '<div class="result">';
+                    html += '<h2 class="error">❌ ERROR: epoch_info is missing!</h2>';
+                    html += '<p>The API response does not contain epoch_info. This is why Epoch shows 0.</p>';
+                    html += '</div>';
+                }
+                
+                resultsDiv.innerHTML = html;
+                
+            } catch (error) {
+                resultsDiv.innerHTML = '<div class="result"><h2 class="error">❌ Error</h2><pre>' + error.message + '</pre></div>';
+            }
+        }
+        
+        // Auto-test on load
+        window.onload = testAPI;
+    </script>
+</body>
+</html>
