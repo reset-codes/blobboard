@@ -3,25 +3,21 @@
 // - Latest data: GET /api/walrus/latest
 // - Historical data: GET /api/walrus/history?limit=<number>
 // - Statistics: GET /api/walrus/stats
-// Response structure:
+// Response structure (flat JSON):
 // {
-//   "status": "success",
-//   "timestamp": "ISO-8601",
-//   "data": {
-//     "storage_price": number (Frost per MiB per epoch),
-//     "storage_capacity": {
-//       "used_tb": number,
-//       "total_pb": number,
-//       "percentage": number
-//     },
-//     "last_updated": "YYYY-MM-DD HH:MM:SS",
-//     "epoch_info": {
-//       "current_epoch": number,
-//       "epoch_percentage_completed": number,
-//       "source": string
-//     }
-//   },
-//   "cached": boolean
+//   "storage_price": number (Frost per MiB per epoch),
+//   "write_price": number (Frost per write transaction),
+//   "capacity_used_tb": number,
+//   "capacity_total_pb": number,
+//   "capacity_percentage": number,
+//   "epoch": number (current Walrus epoch),
+//   "epoch_start_time": "ISO-8601 timestamp",
+//   "epoch_end_time": "ISO-8601 timestamp",
+//   "epoch_duration_days": number (typically 14),
+//   "hours_remaining": number (pre-calculated),
+//   "days_remaining": number (pre-calculated),
+//   "percentage_completed": number,
+//   "is_final_day": boolean
 // }
 export const WALRUS_API_BASE = 'https://walrus-api.walrus-api.workers.dev/api/walrus';
 
