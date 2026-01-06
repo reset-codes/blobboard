@@ -8,47 +8,48 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
     epochInfo,
     hasEpochInfo: !!epochInfo,
     currentEpoch: epochInfo?.current_epoch,
-    epochProgress: epochInfo?.epoch_percentage_completed
+    epochProgress: epochInfo?.epoch_percentage_completed,
+    hoursRemaining: epochInfo?.hours_remaining,
+    daysRemaining: epochInfo?.days_remaining
   });
-  
+
   // Get API storage data
   const apiStoragePercentage = epochInfo?.storage_capacity?.percentage || 0;
   const apiTotalPB = epochInfo?.storage_capacity?.total_pb || 0;
-  
+
   // Use total capacity directly from API if available, otherwise calculate or use fallback
   const maxStorageCapacityTB = apiTotalPB > 0
     ? apiTotalPB * 1024 // Convert PB to TB
     : (apiStoragePercentage > 0 && totalDataStoredTB > 0)
       ? (totalDataStoredTB / (apiStoragePercentage / 100)) // Calculate from percentage
       : 3.7 * 1024; // Fallback: 3.7 PB converted to TB
-  
+
   // Calculate storage percentage as fallback if API doesn't provide it
   const storagePercentage = Math.min(100, (totalDataStoredTB / maxStorageCapacityTB) * 100);
-  
-  // Use API data for epoch progress with better fallbacks
+
+  // Use API data for epoch progress - now with pre-calculated values
   const epochProgress = epochInfo?.epoch_percentage_completed || 0;
   const currentEpoch = epochInfo?.current_epoch || 0;
-  
+
+  // Use pre-calculated values from API (dynamic epoch duration!)
+  const hoursRemaining = epochInfo?.hours_remaining || 0;
+  const daysRemaining = epochInfo?.days_remaining || 0;
+  const isFinalDay = epochInfo?.is_final_day || false;
+
   console.log('🔢 Calculated values:', {
     epochProgress,
     currentEpoch,
     storagePercentage,
-    maxStorageCapacityTB
+    maxStorageCapacityTB,
+    hoursRemaining,
+    daysRemaining,
+    isFinalDay
   });
-  
-  // Calculate current day in epoch (14-day cycle)
-  const epochDurationDays = 14;
-  const currentDayInEpoch = Math.floor((epochProgress / 100) * epochDurationDays) + 1;
-  
-  // Calculate hours left in epoch
-  const epochDurationHours = epochDurationDays * 24; // 14 days = 336 hours
-  const epochProgressHours = (epochProgress / 100) * epochDurationHours;
-  const hoursLeftInEpoch = Math.max(0, epochDurationHours - epochProgressHours);
-  
-  // Determine what to display for time left
-  const displayTimeLeft = hoursLeftInEpoch < 24 
-    ? `${Math.ceil(hoursLeftInEpoch)} hours` 
-    : `${epochDurationDays - currentDayInEpoch} days`;
+
+  // Determine what to display for time left (use API values directly)
+  const displayTimeLeft = hoursRemaining < 24
+    ? `${Math.ceil(hoursRemaining)} hours`
+    : `${Math.ceil(daysRemaining)} days`;
 
   if (isLoading) {
     return (
@@ -87,9 +88,9 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
       zIndex: 99,
       boxSizing: 'border-box',
     }}>
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'space-between', 
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
         flexWrap: 'wrap',
         gap: 'clamp(8px, 3vw, 24px)',
         maxWidth: '1200px',
@@ -105,51 +106,51 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
           flexDirection: 'column',
           alignItems: 'center'
         }}>
-          <div style={{ 
-            fontSize: 'clamp(11px, 2.5vw, 14px)', 
-            fontWeight: '600', 
+          <div style={{
+            fontSize: 'clamp(11px, 2.5vw, 14px)',
+            fontWeight: '600',
             color: '#fff',
             marginBottom: 'clamp(3px, 1vw, 8px)',
             textAlign: 'center'
           }}>
             Storage Used: <span style={{ color: '#C584F6' }}>{totalDataStoredTB?.toLocaleString(undefined, { maximumFractionDigits: 2 })} TB</span> / <span style={{ color: '#97F0E5' }}>{(maxStorageCapacityTB / 1024)?.toFixed(2)} PB</span>
           </div>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
             gap: '12px',
             width: '100%',
             maxWidth: '500px'
           }}>
-            <div style={{ 
+            <div style={{
               flex: 1,
-              height: '10px', 
-              background: '#2e2f4a', 
-              borderRadius: '5px', 
-              overflow: 'hidden' 
+              height: '10px',
+              background: '#2e2f4a',
+              borderRadius: '5px',
+              overflow: 'hidden'
             }}>
-              <div 
-                style={{ 
-                  height: '100%', 
-                  width: `${apiStoragePercentage || storagePercentage}%`, 
+              <div
+                style={{
+                  height: '100%',
+                  width: `${apiStoragePercentage || storagePercentage}%`,
                   background: 'linear-gradient(90deg, #C584F6, #9b59b6)',
                   borderRadius: '5px',
                   transition: 'width 0.3s ease'
-                }} 
+                }}
               />
             </div>
-            <div style={{ 
-              fontSize: 'clamp(11px, 2.5vw, 14px)', 
-              fontWeight: '600', 
-              color: '#fff', 
+            <div style={{
+              fontSize: 'clamp(11px, 2.5vw, 14px)',
+              fontWeight: '600',
+              color: '#fff',
               minWidth: 'clamp(30px, 6vw, 40px)',
-              textAlign: 'right' 
+              textAlign: 'right'
             }}>
               {(apiStoragePercentage || storagePercentage).toFixed(1)}%
             </div>
           </div>
         </div>
-        
+
         {/* Epoch Progress Section */}
         <div className="top-stats-section" style={{
           flex: '1 1 45%',
@@ -158,45 +159,45 @@ const TopStatsBar = ({ isLoading, totalDataStoredTB, epochInfo }) => {
           flexDirection: 'column',
           alignItems: 'center'
         }}>
-          <div style={{ 
-            fontSize: 'clamp(11px, 2.5vw, 14px)', 
-            fontWeight: '600', 
+          <div style={{
+            fontSize: 'clamp(11px, 2.5vw, 14px)',
+            fontWeight: '600',
             color: '#fff',
             marginBottom: 'clamp(3px, 1vw, 8px)',
             textAlign: 'center'
           }}>
             Epoch <span style={{ color: '#C584F6' }}>{currentEpoch}</span>: ~<span style={{ color: '#97F0E5' }}>{displayTimeLeft}</span> left
           </div>
-          <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
             gap: '12px',
             width: '100%',
             maxWidth: '500px'
           }}>
-            <div style={{ 
+            <div style={{
               flex: 1,
-              height: '10px', 
-              background: '#2e2f4a', 
-              borderRadius: '5px', 
-              overflow: 'hidden' 
+              height: '10px',
+              background: '#2e2f4a',
+              borderRadius: '5px',
+              overflow: 'hidden'
             }}>
-              <div 
-                style={{ 
-                  height: '100%', 
-                  width: `${epochProgress}%`, 
+              <div
+                style={{
+                  height: '100%',
+                  width: `${epochProgress}%`,
                   background: 'linear-gradient(90deg, #97F0E5, #4ECDC4)',
                   borderRadius: '5px',
                   transition: 'width 0.3s ease'
-                }} 
+                }}
               />
             </div>
-            <div style={{ 
-              fontSize: 'clamp(11px, 2.5vw, 14px)', 
-              fontWeight: '600', 
-              color: '#fff', 
+            <div style={{
+              fontSize: 'clamp(11px, 2.5vw, 14px)',
+              fontWeight: '600',
+              color: '#fff',
               minWidth: 'clamp(30px, 6vw, 40px)',
-              textAlign: 'right' 
+              textAlign: 'right'
             }}>
               {epochProgress.toFixed(0)}%
             </div>

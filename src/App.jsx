@@ -50,52 +50,118 @@ function App() {
         if (pricesData.sui?.usd) setSuiPrice(pricesData.sui.usd);
         if (pricesData.bitcoin?.usd) setBtcPrice(pricesData.bitcoin.usd);
 
-        if (walrusData.data) {
-          console.log('✅ Walrus API Full Response:', walrusData);
-          
-          // Extract epoch_info with fallback
-          const epochInfoData = walrusData.data.epoch_info || {};
-          const storageCapacityData = walrusData.data.storage_capacity || {};
-          
+        // Handle both wrapped (data.*) and flat API response formats
+        const apiData = walrusData.data || walrusData;
+
+        // Detect API format: new flat format has 'epoch' and 'capacity_used_tb'
+        // Old format has 'epoch_info' and 'storage_capacity' nested objects
+        const isNewFormat = apiData.epoch !== undefined || apiData.capacity_used_tb !== undefined;
+        const isOldFormat = apiData.epoch_info !== undefined || apiData.storage_capacity !== undefined;
+
+        console.log('✅ Walrus API Full Response:', walrusData);
+        console.log('📋 API Format Detection:', { isNewFormat, isOldFormat });
+
+        if (isNewFormat) {
+          // NEW FLAT API FORMAT
+          console.log('📊 Using NEW flat API format');
           console.log('📊 Parsed Data:', {
-            storage_price: walrusData.data.storage_price,
+            storage_price: apiData.storage_price,
+            write_price: apiData.write_price,
+            capacity_used_tb: apiData.capacity_used_tb,
+            capacity_total_pb: apiData.capacity_total_pb,
+            capacity_percentage: apiData.capacity_percentage,
+            epoch: apiData.epoch,
+            percentage_completed: apiData.percentage_completed,
+            hours_remaining: apiData.hours_remaining,
+            days_remaining: apiData.days_remaining,
+            is_final_day: apiData.is_final_day
+          });
+
+          setFrostPerMiB(apiData.storage_price || FROST_PER_MIB_PER_EPOCH);
+          setTotalDataStoredTB(apiData.capacity_used_tb || 509);
+
+          // Map flat API structure to epochInfo state
+          const newEpochInfo = {
+            current_epoch: apiData.epoch,
+            epoch_percentage_completed: apiData.percentage_completed,
+            epoch_start_time: apiData.epoch_start_time,
+            epoch_end_time: apiData.epoch_end_time,
+            epoch_duration_days: apiData.epoch_duration_days || 14,
+            hours_remaining: apiData.hours_remaining,
+            days_remaining: apiData.days_remaining,
+            is_final_day: apiData.is_final_day,
+            write_price: apiData.write_price,
+            storage_capacity: {
+              used_tb: apiData.capacity_used_tb,
+              total_pb: apiData.capacity_total_pb,
+              percentage: apiData.capacity_percentage
+            }
+          };
+          console.log('🔄 Setting epochInfo to:', newEpochInfo);
+          setEpochInfo(newEpochInfo);
+
+        } else if (isOldFormat) {
+          // OLD NESTED API FORMAT (backward compatibility)
+          console.log('📊 Using OLD nested API format');
+          const epochInfoData = apiData.epoch_info || {};
+          const storageCapacityData = apiData.storage_capacity || {};
+
+          console.log('📊 Parsed Data (old format):', {
+            storage_price: apiData.storage_price,
             used_tb: storageCapacityData.used_tb,
             total_pb: storageCapacityData.total_pb,
             percentage: storageCapacityData.percentage,
             current_epoch: epochInfoData.current_epoch,
-            epoch_progress: epochInfoData.epoch_percentage_completed,
-            has_epoch_info: !!walrusData.data.epoch_info,
-            cached: walrusData.cached
+            epoch_progress: epochInfoData.epoch_percentage_completed
           });
-          
-          setFrostPerMiB(walrusData.data.storage_price);
-          setTotalDataStoredTB(storageCapacityData.used_tb);
-          
-          // The new API includes epoch_info directly in data with storage_capacity
-          if (walrusData.data.epoch_info) {
-            const newEpochInfo = {
-              current_epoch: epochInfoData.current_epoch,
-              epoch_percentage_completed: epochInfoData.epoch_percentage_completed,
-              source: epochInfoData.source,
-              storage_capacity: storageCapacityData
-            };
-            console.log('🔄 Setting epochInfo to:', newEpochInfo);
-            setEpochInfo(newEpochInfo);
-          } else {
-            console.warn('⚠️ No epoch_info in API response, using fallback');
-            // Set fallback epoch info
-            setEpochInfo({
-              current_epoch: 12,
-              epoch_percentage_completed: 50,
-              source: 'fallback',
-              storage_capacity: storageCapacityData
-            });
-          }
+
+          setFrostPerMiB(apiData.storage_price || FROST_PER_MIB_PER_EPOCH);
+          setTotalDataStoredTB(storageCapacityData.used_tb || 509);
+
+          // Calculate hours_remaining from percentage if not provided (old format)
+          const epochDurationDays = 14;
+          const epochProgress = epochInfoData.epoch_percentage_completed || 0;
+          const calculatedHoursRemaining = ((100 - epochProgress) / 100) * epochDurationDays * 24;
+          const calculatedDaysRemaining = calculatedHoursRemaining / 24;
+
+          const newEpochInfo = {
+            current_epoch: epochInfoData.current_epoch,
+            epoch_percentage_completed: epochInfoData.epoch_percentage_completed,
+            epoch_duration_days: epochDurationDays,
+            hours_remaining: calculatedHoursRemaining,
+            days_remaining: calculatedDaysRemaining,
+            is_final_day: calculatedHoursRemaining < 24,
+            source: epochInfoData.source,
+            storage_capacity: storageCapacityData
+          };
+          console.log('🔄 Setting epochInfo to:', newEpochInfo);
+          setEpochInfo(newEpochInfo);
+
         } else {
-          console.error('❌ No data in Walrus API response:', walrusData);
+          console.error('❌ No valid data in Walrus API response:', walrusData);
+          // Set fallback epoch info
+          setEpochInfo({
+            current_epoch: 21,
+            epoch_percentage_completed: 50,
+            epoch_duration_days: 14,
+            hours_remaining: 168,
+            days_remaining: 7,
+            is_final_day: false,
+            storage_capacity: { used_tb: 509, total_pb: 3.7, percentage: 13.78 }
+          });
         }
       } catch (e) {
         console.error("Failed to fetch data:", e);
+        // Set fallback on error
+        setEpochInfo({
+          current_epoch: 21,
+          epoch_percentage_completed: 50,
+          epoch_duration_days: 14,
+          hours_remaining: 168,
+          days_remaining: 7,
+          is_final_day: false,
+          storage_capacity: { used_tb: 509, total_pb: 3.7, percentage: 13.78 }
+        });
       } finally {
         setIsLoading(false);
       }
